@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-lg-4" >
+    <h1><%=User.find(@user_id).name.capitalize %>, here is your survey on @title!</h1>
+  </div>
+</div>
+
+
+<div class="row" style="margin-top:40px;">
+  <div class="col-lg-6" style="padding-right:40px">
+    <h3><center> Survey Title(erb) </center></h3>
+    <!-- <% #unless @surveys_taken.empty? %> -->
+      <h3><center> Surveys Taken </center></h3>
+      <ul class="list-unstyled">
+        <!-- <% @survey_results.each #do |result| %> -->
+            <li>
+              <div class="row">
+                <hr>
+                <div class="col-lg-7">
+                  <!-- <p class="lead"><%= results %></p> -->
+                </div>
+              </div>
+            </li>
+        <!-- <% #end %> -->
+      </ul>
+      <hr>
+    <!-- <% #else  %> -->
+        <!-- <img class="watermark" src="/images/gorilla.png" width="250" alt=""> -->
+    <!-- <%#end%> -->
+  </div>
+</div>

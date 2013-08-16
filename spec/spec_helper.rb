@@ -1,4 +1,9 @@
-require 'rubygems'
+require 'simplecov'
+SimpleCov.start
+
+
+require 'factory_girl'
+require 'factories'
 
 # All our specs should require 'spec_helper' (this file)
 

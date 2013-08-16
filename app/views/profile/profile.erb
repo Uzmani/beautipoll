@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-lg-4" >
+    <h1>Great to see you, <%=User.find(@user_id).name.capitalize %>!</h1>
+  </div>
+
+  <div class="col-lg-4" >
+    <div class="well text-center" >
+      <p>See (and borrow from) some sample surveys here!</p>
+      <br>
+      <center><a class="btn btn-info"  href="/make">Sample surveys</a></center>
+    </div>
+  </div>
+
+  <div class="col-lg-4" >
+    <div class="well text-center">
+      <p>Use this button to create a random fun survey!</p>
+      <br>
+      <center><a class="btn btn-info"  href="/statistics">Random survey!</a></center>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" style="margin-top:40px;">
+  <div class="col-lg-6" style="padding-right:40px">
+    <h3><center> Surveys Created </center></h3>
+    <ul class="list-unstyled">
+      <% Survey.all.each do |survey| %>
+          <li>
+            <div class="row">
+              <hr>
+              <div class="col-lg-7">
+                <p class="lead"><%= survey.title %></p>
+              </div>
+              <div class="col-lg-4">
+                <a class="btn btn-default"  href="/survey/<%= survey.id %>">View Results</a>
+              </div>
+            </div>
+          </li>
+      <% end %>
+    </ul>
+    <hr>
+  </div>
+
+  <div class="col-lg-6" style="padding-left:40px">
+    <% unless @surveys_taken.empty? %>
+      <h3><center> Surveys Taken </center></h3>
+      <ul class="list-unstyled">
+        <% @surveys_taken.each do |survey| %>
+            <li>
+              <div class="row">
+                <hr>
+                <div class="col-lg-7">
+                  <p class="lead"><%= survey.title %></p>
+                </div>
+                <div class="col-lg-4">
+                  <a class="btn btn-default"  href="/continue/<%= survey.id %>">Continue survey</a>
+                </div>
+              </div>
+            </li>
+        <% end %>
+      </ul>
+      <hr>
+    <% else  %>
+        <img class="watermark" src="/images/gorilla.png" width="250" alt="">
+    <%end%>
+  </div>
+</div>
+
+
+
