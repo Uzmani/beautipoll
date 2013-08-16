@@ -81,7 +81,7 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Surveys" row="id" />
 </row>
-<row name="order_num" null="1" autoincrement="0">
+<row name="position" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="type" null="1" autoincrement="0">
