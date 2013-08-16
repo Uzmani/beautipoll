@@ -17,6 +17,9 @@ gem 'bcrypt-ruby'
 
 gem 'shotgun'
 
+gem 'factory_girl', "~> 4.0"
+gem 'simplecov', require: false
+
 group :development, :test do
   gem 'faker'
   gem 'rspec'
