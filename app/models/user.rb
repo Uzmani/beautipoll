@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :completed_surveys
+  has_many :surveys
+  
   validates_uniqueness_of :email
 
   def self.authenticate(email, password)

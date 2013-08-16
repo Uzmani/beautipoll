@@ -1,7 +1,7 @@
 <div class="container">
 
-  <h1>Welcome to the Dummy Users page!</h1>
-  <p><i>Authenticating dummy users since August 2013</i></p>
+  <h1>Welcome to BeautiPoll!</h1>
+  <p><i>The best survey site on the web, since August 2013</i></p>
 
   <% if @error && @error.length > 0 %>
     <div id="myModal" class="reveal-modal">
@@ -12,16 +12,3 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
   <% end %>
-
-  <% if @email %>
-    <div>
-      <br><br>
-      <h2>Our awesome users:</h2>
-      <% @users.each do |user| %>
-        Name: <%= user.name.capitalize %><br><br>
-        Email: <%= user.email %>
-        <br><br><br>
-      <% end %>
-    </div>
-  <% end %>
-</div>

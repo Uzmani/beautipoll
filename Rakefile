@@ -1,6 +1,4 @@
 require 'rake'
-require 'rspec/core/rake_task'
-
 
 require ::File.expand_path('../config/environment', __FILE__)
 
@@ -22,7 +20,7 @@ namespace :generate do
       raise "ERROR: Model file '#{model_path}' already exists"
     end
 
-    puts "Creating #{model_path}"
+    #puts "Creating #{model_path}"
     File.open(model_path, 'w+') do |f|
       f.write(<<-EOF.strip_heredoc)
         class #{model_name} < ActiveRecord::Base
@@ -116,14 +114,30 @@ namespace :db do
   task :version do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"
   end
+
+  desc "Resets the database"
+  task :reset do
+    `rake db:drop && rake db:create && rake db:migrate && rake db:seed`
+  end
+
+  desc "Sets up environment minus seed"
+  task :setup do
+    `rake db:drop && rake db:create && rake db:migrate`
+  end
 end
 
-desc 'Start IRB with application environment loaded'
+desc 'Start pry with application environment loaded'
 task "console" do
-  exec "irb -r./config/environment"
+  exec "pry -r./config/environment"
 end
 
-desc "Run the specs"
-RSpec::Core::RakeTask.new(:spec)
+unless ENV['RACK_ENV'] == 'test'
+  require 'rspec/core/rake_task'
 
-task :default  => :specs
+  desc "Task for running Rspec tests"
+  task "specs" do
+    RSpec::Core::RakeTask.new(:spec)
+  end
+end
+
+task :default  => [:specs]
