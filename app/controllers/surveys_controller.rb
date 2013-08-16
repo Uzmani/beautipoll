@@ -1,4 +1,7 @@
 get '/surveys/new' do
+  ttitle = params[:survey_title]
+
+  {title: title}.to_json
   erb :'surveys/new'
 end
 
@@ -16,7 +19,7 @@ end
 post '/surveys' do
   @survey = Survey.new(title: params[:title])
   if @survey.save
-    redirect "surveys/#{@survey.id}"
+    {title: params[:title]}.to_json
   else
     erb :'surveys/new'
   end
