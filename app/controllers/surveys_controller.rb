@@ -3,7 +3,9 @@ get '/surveys/new' do
 end
 
 get '/surveys/:id' do
-  @survey = Survey.find_by_id(:id)
+  @survey = Survey.find_by_id(params[:id])
+  @answers = params[:answer]
+  @questions = params[:question]
   erb :'surveys/show'
 end
 

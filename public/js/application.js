@@ -16,11 +16,15 @@ $(document).ready(function () {
   $('#create_survey').on('submit', function(e){
     e.preventDefault();
     var data = $(this).closest('form').serialize();
-    $.post('/surveys', data, function(response){
-      $('.container').html(response);
+    $.post('/surveys', data, function(reply){
+      console.log(reply)
+      $('.container').html(reply);
     })
+
+      
   });
 
+    
   //<form name
   // answer.each do |answer|
   //    <input type="radio" value="<%=answer=%>"> <%= @answer %> <br>
@@ -36,3 +40,14 @@ $(document).ready(function () {
   });
 
 });
+
+// - wrap form fields in div#form_fields (or other element)
+
+// - click submit button
+// $('form_fields').on('click', 'submit', function(e){
+
+// })
+// - grap text from input field $('input').text()
+// - store this into a variable
+// - create a radio button, set label to variable
+// - append radio buttom to div
