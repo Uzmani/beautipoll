@@ -1,0 +1,27 @@
+<div class="container">
+
+  <h1>Welcome to the Dummy Users page!</h1>
+  <p><i>Authenticating dummy users since August 2013</i></p>
+
+  <% if @error && @error.length > 0 %>
+    <div id="myModal" class="reveal-modal">
+      <h1>Error!</h1>
+      <% @error.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
+  <% end %>
+
+  <% if @email %>
+    <div>
+      <br><br>
+      <h2>Our awesome users:</h2>
+      <% @users.each do |user| %>
+        Name: <%= user.name.capitalize %><br><br>
+        Email: <%= user.email %>
+        <br><br><br>
+      <% end %>
+    </div>
+  <% end %>
+</div>
