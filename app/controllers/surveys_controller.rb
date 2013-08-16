@@ -8,7 +8,7 @@ get '/surveys/:id' do
 end
 
 post '/surveys' do
-  @survey = Survey.new(params)
+  @survey = Survey.new(title: params[:title])
   if @survey.save
     redirect "surveys/#{@survey.id}"
   else
