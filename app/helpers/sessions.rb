@@ -1,7 +1,7 @@
 helpers do
 
   def current_user
-    User.where(email: session[:email]).first
+    User.find(session[:user_id]) rescue nil
   end
 
 end

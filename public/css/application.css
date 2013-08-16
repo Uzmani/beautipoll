@@ -1,13 +1,15 @@
 body {
-  background-image: url('/images/background.png')
-  background-size: 900px;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/background.png');
+  background-size: 100%;
+  background-repeat: round;
 }
 
 .container {
   margin: 20px auto;
-  width: 800px;
+  width: 1000px;
   padding: 0px 20px 20px 20px;
-  border: 1px dotted black;
 }
 
 .container h1 {
@@ -23,7 +25,7 @@ nav {
 
 nav .brand, nav .brand a {
   margin-left: 25px;
-  font-size: 18pt;
+  font-size: 28pt;
   text-decoration: none;
   color: #444;
   width: 60%;
@@ -42,7 +44,7 @@ nav li {
 }
 
 nav li a {
-  color: gray;
+  color: silver;
   text-decoration: none;
 }
 
@@ -77,4 +79,9 @@ form.quirks {
   text-align: right;
   margin-right: 20px;
   width: 200px;
+}
+
+.watermark {
+  opacity: 0.7;
+  padding: 70% 0 0 8%;
 }

@@ -1,6 +1,6 @@
 get '/' do
   @users = User.all
-  @email = session[:email]
+  @email = User.find(session[:user_id]).email rescue nil
   @error = session[:error]
   session[:error] = nil
   erb :index
@@ -9,8 +9,8 @@ end
 #----------- SESSIONS -----------
 
 get '/sessions/new' do
-  @email = session[:email]
-  @error = nil
+  @email = User.find(session[:user_id]).email rescue nil
+  session[:error] = nil
   erb :sign_in
 end
 
@@ -31,5 +31,7 @@ end
 
 post '/users' do
   validate_and_create_user
-  redirect '/'
+  @user_id = session[:user_id]
+  @surveys_taken = CompletedSurvey.where(user_id: @user_id)
+  @user_id ? (erb :"profile/profile") : (redirect '/')
 end

@@ -7,9 +7,9 @@ def validate_and_create_user
   params[:user].delete("password")
   user = User.new(params[:user])
   if user.valid?
-    session[:email] = user.email
     session[:error] = nil
     user.save
+    session[:user_id] = user.id
   else
     session[:error] << "You've already created an account with this email address.  Please login!"
   end
