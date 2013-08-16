@@ -24,17 +24,18 @@ nav {
 }
 
 nav .brand, nav .brand a {
+  margin-top: -5px;
   margin-left: 25px;
   font-size: 28pt;
   text-decoration: none;
   color: #444;
-  width: 60%;
+  width: 50%;
   display: inline-block;
 }
 
 nav ul {
   display: inline-block;
-  width: 30%;
+  width: 40%;
   text-align: right;
 }
 
@@ -44,7 +45,7 @@ nav li {
 }
 
 nav li a {
-  color: silver;
+  color: #333;
   text-decoration: none;
 }
 
