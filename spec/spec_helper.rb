@@ -7,4 +7,13 @@ require 'rubygems'
 # command line when we run rake spec.  That's tedious, so do it here.
 ENV['RACK_ENV'] ||= 'test'
 
+RSpec.configure do |config|
+  config.around do |example|
+    ActiveRecord::Base.transaction do
+      example.run
+      raise ActiveRecord::Rollback
+    end
+  end
+end 
+
 require File.expand_path("../../config/environment", __FILE__)
