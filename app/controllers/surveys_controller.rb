@@ -1,29 +1,57 @@
+
+# get '/surveys/new' do
+#   erb :'surveys/new'
+# end
+
+# post '/surveys/new' do
+#   @survey = Survey.new(params)
+#   if @survey.save
+#     {title: params[:title]}.to_json
+#   else
+#     erb :'surveys/new'  
+#   end
+#   erb :'questions/new'
+# end
+
+# get '/surveys/new' do
+#   erb :"surveys/new"
+# end
+
+# post '/surveys' do
+#   @survey = Survey.new(params)
+#   if @survey.save
+#     {title: params[:title]}.to_json
+#   else
+#     erb :'surveys/new'  
+#   end
+#   erb :'questions/new'
+# end
+
+# -----------------------------------
+
 get '/surveys/new' do
-  erb :'surveys/new'
+  erb :'surveys/title'
 end
 
 post '/surveys/new' do
-  @survey = Survey.new(params)
-  if @survey.save
-    {title: params[:title]}.to_json
-  else
-    erb :'surveys/new'  
-  end
-  erb :'questions/new'
+  Survey.new##
+  @title = 
+  erb :'surveys/new_survey'
 end
 
-get '/surveys/new' do
-  erb :"surveys/new"
+get '/surveys/new_q' do
+  erb :'surveys/question'
 end
 
-post '/surveys' do
-  @survey = Survey.new(params)
-  if @survey.save
-    {title: params[:title]}.to_json
-  else
-    erb :'surveys/new'  
-  end
-  erb :'questions/new'
+post '/surveys/new_q' do
+  @question = 
+  @answers = 
+  erb :'surveys/new_survey'
+end
+
+post '/survey/complete' do
+  @alter state of survey
+  erb :'surveys/thanks'
 end
 
 get '/take_survey' do
