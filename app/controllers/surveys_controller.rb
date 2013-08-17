@@ -1,7 +1,4 @@
 get '/surveys/new' do
-  ttitle = params[:survey_title]
-
-  {title: title}.to_json
   erb :'surveys/new'
 end
 
@@ -16,11 +13,12 @@ end
   # @title = Survey.find_by_id(@survey)
   # erb :'profile/result'
 
-post '/surveys' do
+post '/surveys/new' do
   @survey = Survey.new(title: params[:title])
   if @survey.save
     {title: params[:title]}.to_json
   else
-    erb :'surveys/new'
+    erb :'surveys/new'  
   end
+  erb :'questions/new'
 end
