@@ -1,48 +1,20 @@
-
-# get '/surveys/new' do
-#   erb :'surveys/new'
-# end
-
-# post '/surveys/new' do
-#   @survey = Survey.new(params)
-#   if @survey.save
-#     {title: params[:title]}.to_json
-#   else
-#     erb :'surveys/new'  
-#   end
-#   erb :'questions/new'
-# end
-
-# get '/surveys/new' do
-#   erb :"surveys/new"
-# end
-
-# post '/surveys' do
-#   @survey = Survey.new(params)
-#   if @survey.save
-#     {title: params[:title]}.to_json
-#   else
-#     erb :'surveys/new'  
-#   end
-#   erb :'questions/new'
-# end
-
-# -----------------------------------
-
 get '/surveys/new' do
+  session[:survey_id] = nil
   erb :'surveys/title'
 end
 
 post '/surveys/new' do
-  # File.open('public/uploads/' + params["image"][:filename], "w") do |f|
-  #   f.write(params["image"][:tempfile].read)
-  # end
-  # image_url = "uploads/#{params["image"][:filename]}"
+  p params
+  File.open('public/uploads/' + params[:image][:filename], "w") do |f|
+    f.write(params[:image][:tempfile].read)
+  end
+  image_url = "uploads/#{params[:image][:filename]}"
   @survey = Survey.create({
     title: params[:title],
-    # image_url: image_url,
+    image_url: image_url,
     visibility: (params[:make_private] ? 1 : 0),
-    url: SecureRandom.hex(4)
+    url: SecureRandom.hex(4),
+    user: (User.find(session[:user_id]) rescue nil)
     })
   @questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
@@ -50,16 +22,19 @@ post '/surveys/new' do
 end
 
 get '/surveys/new_q' do
-  @survey = Survey.find(session[:survey_id]) rescue nil
-  session[:survey_id] = nil
   erb :'surveys/question'
 end
 
+get '/surveys/escape' do
+  @survey = Survey.find(session[:survey_id]) rescue nil
+  @questions = Question.where(survey_id: @survey.id)
+  erb :'survey/new_survey', :layout => false
+end
+
 post '/surveys/new_q' do
-  session[:survey_id] = params[:survey_id]
-  survey = Survey.find(session[:survey_id])
+  @survey = Survey.find(session[:survey_id]) rescue nil
   @question = Question.create({
-    survey: survey,
+    survey: @survey,
     content: params[:content]
     })
   choices = params[:choice].split(".y.y.")
@@ -67,13 +42,14 @@ post '/surveys/new_q' do
     Choice.create({
       question: @question,
       content: choice
-      })
+      }) unless choice == ""
   end
-  @choices = Choice.where(question_id: @question.id)
+  @questions = Question.where(survey_id: @survey.id)
   erb :'surveys/new_survey', :layout => false
 end
 
 post '/surveys/complete' do
+  #give user url link
   session[:survey_id] = nil
   erb :'surveys/thanks'
 end

@@ -17,6 +17,7 @@ gem 'rake'
 gem 'bcrypt-ruby'
 
 gem 'shotgun'
+gem 'pry'
 
 gem 'factory_girl', "~> 4.0"
 gem 'simplecov', require: false
