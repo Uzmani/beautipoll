@@ -21,11 +21,26 @@ $(document).ready(function () {
     var data = $(this).closest('form').serialize();
     $.post('/surveys/new', data, function(reply){
       console.log(reply);
-      $('.container').html(reply);
+      $('.container').append(reply);
     });
-
-      
   });
+
+  $('#create_question').on('submit', function(e){
+    e.preventDefault();
+    var data = $(this).closest('form').serialize();
+    $.post('/questions/new', data, function(reply){
+      $('.container').html(reply);
+    })
+  });
+
+  $('#create_answers').on('submit', function(e){
+    e.preventDefault();
+    var data = $(this).closest('form').serialize();
+    $.post('/answers/new', data, function(reply){
+      $('.container').html(reply);
+    })
+  });
+
 
 	setTimeout(function() {
 		$('#myModal').reveal().trigger('click');
