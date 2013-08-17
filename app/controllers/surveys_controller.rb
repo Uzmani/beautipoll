@@ -1,3 +1,7 @@
+get '/surveys/new' do
+  erb :'surveys/new'
+end
+
 post '/surveys/new' do
   @survey = Survey.new(params)
   if @survey.save
