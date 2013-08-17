@@ -9,10 +9,6 @@ get '/surveys/:id' do
   erb :'surveys/show'
 end
 
-#or
-  # @title = Survey.find_by_id(@survey)
-  # erb :'profile/result'
-
 post '/surveys/new' do
   @survey = Survey.new(title: params[:title])
   if @survey.save
