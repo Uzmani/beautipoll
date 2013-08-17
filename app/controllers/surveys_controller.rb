@@ -5,10 +5,14 @@ end
 
 post '/surveys/new' do
   p params
-  File.open('public/uploads/' + params[:image][:filename], "w") do |f|
-    f.write(params[:image][:tempfile].read)
+  if params[:image]
+    File.open('public/uploads/' + params[:image][:filename], "w") do |f|
+      f.write(params[:image][:tempfile].read)
+    end
+    image_url = "/uploads/#{params[:image][:filename]}"
+  else
+    image_url = nil
   end
-  image_url = "uploads/#{params[:image][:filename]}"
   @survey = Survey.create({
     title: params[:title],
     image_url: image_url,
@@ -28,7 +32,7 @@ end
 get '/surveys/escape' do
   @survey = Survey.find(session[:survey_id]) rescue nil
   @questions = Question.where(survey_id: @survey.id)
-  erb :'survey/new_survey', :layout => false
+  erb :'surveys/new_survey', :layout => false
 end
 
 post '/surveys/new_q' do
