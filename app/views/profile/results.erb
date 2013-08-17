@@ -1,30 +1,35 @@
 <div class="row">
   <div class="col-lg-4" >
-    <h1><%=User.find(@user_id).name.capitalize %>, here is your survey on @title!</h1>
+    <h1><%= @user.name.capitalize %>, here is your survey on <%= @survey.title %>!</h1>
   </div>
 </div>
 
+<div class="row" style="margin:-20px 0 0 650px;">
+  <div class="col-lg-13" style="padding-right:40px">
+    <h3> Results: </h3>
+    <br>
+    <% @questions.each_with_index do |question, index| %>
+      <%= index + 1 %>. <%= question.content %>
+      <br>
+      <% question.choices.each do |choice| %>
+        <% choice_count = 0 %>
+        <% choice.replies.each do |reply| %>
+          <%= "<p>#{reply.content}</p>" if reply.content %>
+          <% choice_count += 1 %>
+        <% end %>
+        <br>
+        <% if choice_count > 0 %>
+          <%= "<p>Choice: #{choice.content}</p>" %>
+          <%= "<p>Number of responses: #{choice_count}</p>" %>
+        <% end %>
+      <% end %>
+      <br><br>
+    <% end %>
+  </div>
+</div>
 
-<div class="row" style="margin-top:40px;">
+<div class="row" style="margin-top:-570px;">
   <div class="col-lg-6" style="padding-right:40px">
-    <h3><center> Survey Title(erb) </center></h3>
-    <!-- <% #unless @surveys_taken.empty? %> -->
-      <h3><center> Surveys Taken </center></h3>
-      <ul class="list-unstyled">
-        <!-- <% @survey_results.each #do |result| %> -->
-            <li>
-              <div class="row">
-                <hr>
-                <div class="col-lg-7">
-                  <!-- <p class="lead"><%= results %></p> -->
-                </div>
-              </div>
-            </li>
-        <!-- <% #end %> -->
-      </ul>
-      <hr>
-    <!-- <% #else  %> -->
-        <!-- <img class="watermark" src="/images/gorilla.png" width="250" alt=""> -->
-    <!-- <%#end%> -->
+    <img class="watermark" src="/images/rabbit.png" width="250" alt="">
   </div>
 </div>

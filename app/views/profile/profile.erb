@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-4" >
-    <h1>Great to see you, <%=User.find(@user_id).name.capitalize %>!</h1>
+    <h1>Great to see you, <%=@user.name.capitalize %>!</h1>
   </div>
 
   <div class="col-lg-4" >
@@ -51,10 +51,10 @@
               <div class="row">
                 <hr>
                 <div class="col-lg-7">
-                  <p class="lead"><%= survey.title %></p>
+                  <p class="lead"><%= survey.survey.title %></p>
                 </div>
                 <div class="col-lg-4">
-                  <a class="btn btn-default"  href="/continue/<%= survey.id %>">Continue survey</a>
+                  <a class="btn btn-default"  href="/take_survey/<%= survey.id %>">Continue survey</a>
                 </div>
               </div>
             </li>
