@@ -1,0 +1,14 @@
+<h1><%= @survey.title %></h1>
+
+<h2>Questions</h2>
+
+<% @questions.each do |question| %>
+  
+  <p><%= question.content %></p>
+  <br><br>
+  
+<% end %>
+
+<a href="/surveys/new_q" id="new_question"><button>Create a new question!</button></a>
+
+<a href="/surveys/complete" id="complete_survey"><button>Complete my survey!</button></a>

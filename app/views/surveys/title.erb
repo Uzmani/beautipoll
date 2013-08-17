@@ -1,9 +1,13 @@
-<div id="dialog-form" title="Create a Survey">
+<div id="title-form" title="Create a Survey">
 
-<form>
-  <fieldset>
-    <label for="title">Title:</label>
-    <input type="text" name="title" placeholder="Enter the title of your survey here" size="50" required>
-</form>
+  <form enctype="multipart/form-data">
+    <fieldset>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" placeholder="Enter the title of your survey here" size="50" required>
+      <label for="image">Survey Icon:</label>
+      <input type="file" id="survey_image" name="image">
+      <label for="make_private">Make survey private</label>
+      <input type="checkbox" id="make_private" name="make_private" value="yes"> Yes<br>
+  </form>
 
 </div>
