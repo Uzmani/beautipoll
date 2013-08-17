@@ -1,4 +1,4 @@
-<%= @survey.title %>
+<h1 class='survey_title'><%= @survey.title %></h1>
 
 <form action='/questions' id='new_question' method='post'>
   <input type="text" class="survey_question" name="question[]" placeholder="Enter a question here" size="50">
