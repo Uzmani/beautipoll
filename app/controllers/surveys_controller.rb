@@ -1,36 +1,57 @@
-get '/surveys/new' do
-  erb :'surveys/new'
-end
 
-get '/surveys/:id' do
-  @survey = Survey.find_by_id(params[:id])
-  @answers = params[:answer]
-  @questions = params[:question]
-  erb :'surveys/show'
+# get '/surveys/new' do
+#   erb :'surveys/new'
+# end
+
+# post '/surveys/new' do
+#   @survey = Survey.new(params)
+#   if @survey.save
+#     {title: params[:title]}.to_json
+#   else
+#     erb :'surveys/new'  
+#   end
+#   erb :'questions/new'
+# end
+
+# get '/surveys/new' do
+#   erb :"surveys/new"
+# end
+
+# post '/surveys' do
+#   @survey = Survey.new(params)
+#   if @survey.save
+#     {title: params[:title]}.to_json
+#   else
+#     erb :'surveys/new'  
+#   end
+#   erb :'questions/new'
+# end
+
+# -----------------------------------
+
+get '/surveys/new' do
+  erb :'surveys/title'
 end
 
 post '/surveys/new' do
-  @survey = Survey.new(title: params[:title])
+  Survey.new##
+  @title = 
+  erb :'surveys/new_survey'
 end
 
-get '/survey/:id' do
-  @user = User.find(session[:user_id]) rescue nil
-  @survey = Survey.find_by_id(params[:id])
-  @questions = Question.where(survey_id: @survey.id)
-  erb :'profile/results'
+get '/surveys/new_q' do
+  erb :'surveys/question'
 end
 
+post '/surveys/new_q' do
+  @question = 
+  @answers = 
+  erb :'surveys/new_survey'
+end
 
-
-
-post '/surveys' do
-  @survey = Survey.new(params)
-  if @survey.save
-    {title: params[:title]}.to_json
-  else
-    erb :'surveys/new'  
-  end
-  erb :'questions/new'
+post '/survey/complete' do
+  @alter state of survey
+  erb :'surveys/thanks'
 end
 
 get '/take_survey' do
@@ -57,4 +78,11 @@ post '/answer_survey' do
     end
   end
   redirect '/'
+end
+
+get '/survey/:id' do
+  @user = User.find(session[:user_id]) rescue nil
+  @survey = Survey.find_by_id(params[:id])
+  @questions = Question.where(survey_id: @survey.id)
+  erb :'profile/results'
 end

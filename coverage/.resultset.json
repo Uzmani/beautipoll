@@ -1,7 +1,11 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/spec/factories.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/spec/factories.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         null,
         1,
@@ -36,7 +40,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/config/environment.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/config/environment.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         null,
         null,
         null,
@@ -71,7 +79,11 @@
         null,
         1
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/controllers/index.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/controllers/index.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         0,
         0,
@@ -114,16 +126,80 @@
         0,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/controllers/questions_controller.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/controllers/questions_controller.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/controllers/surveys_controller.rb": [
         1,
         0,
         null,
         null,
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/controllers/surveys_controller.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+<<<<<<< HEAD
+        1,
+        0,
+        null,
+        null,
+=======
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+<<<<<<< HEAD
+        null,
+        0,
+        null,
+=======
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
+        0,
+        null,
+        null,
         1,
         0,
         0,
@@ -133,39 +209,10 @@
         null,
         1,
         0,
-        null,
-        null,
-        1,
         0,
         0,
         0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
+<<<<<<< HEAD
         null,
         null,
         1,
@@ -182,6 +229,17 @@
         null
       ],
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/helpers/confirm_login.rb": [
+=======
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null
+      ],
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/helpers/confirm_login.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         0,
         0,
@@ -195,7 +253,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/helpers/sessions.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/helpers/sessions.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         null,
         1,
@@ -204,7 +266,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/helpers/validate_and_create_user.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/helpers/validate_and_create_user.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         0,
         0,
@@ -230,7 +296,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/config/database.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/config/database.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         null,
         1,
         0,
@@ -275,7 +345,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/thestereoscopics/Desktop/ruby_fun/phase2/beautipoll/app/models/survey.rb": [
+=======
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/models/survey.rb": [
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
         1,
         1,
         1,
@@ -290,8 +364,33 @@
         null,
         null,
         null
+<<<<<<< HEAD
       ]
     },
     "timestamp": 1376699976
+=======
+      ],
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/models/user.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/Users/JeffHome/Documents/Ruby Practice/beautipoll/app/models/question.rb": [
+        1,
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1376700662
+>>>>>>> a8710f5e70cb1eeb9763c0b85269ba111c8ffad6
   }
 }

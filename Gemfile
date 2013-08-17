@@ -7,7 +7,8 @@ gem 'pg'
 gem 'sinatra'
 
 # Use Thin for our web server
-gem 'thin'
+# gem 'thin'
+gem 'unicorn'
 
 gem 'activesupport'
 gem 'activerecord'
