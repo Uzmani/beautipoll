@@ -7,9 +7,6 @@ $(document).ready(function () {
     modal: true,
     buttons: {
       "Create your Survey!": function() {
-     
-      var title = $("#title"),
-      make_private = $("#make_private");
 
       var formElement = document.getElementById("title-input");
       var oReq = new XMLHttpRequest();
