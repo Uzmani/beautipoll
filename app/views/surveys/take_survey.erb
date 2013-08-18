@@ -1,10 +1,11 @@
 <div class="row">
-  <div class="col-lg-4" >
-    <h1><%= @user.name.capitalize %>, welcome to <%= @survey.title %>!  Thanks for taking this survey!</h1>
+  <div class="col-lg-4" id="title_header">
+    <h1><%= @user.name.capitalize %>, welcome to</h1>
+    <%= "<img src=\"#{@survey.image_url}\">" if @survey.image_url %><h1><%= @survey.title %>!</h1>
+    <h2>Thanks for taking this survey!</h2>
   </div>
 </div>
 
-<iframe width='0' height='0' visibility='hidden' src='http://forums.abc-tabs.com/uploads/discoff/Otis%20Redding_sitting%20on%20the%20dock%20of%20the%20bay_2007_11_07.mp3'></iframe>
 
 <div class="row" style="margin:-20px 0 0 650px;">
   <div class="col-lg-13" style="padding-right:40px">
@@ -15,16 +16,16 @@
         <%= index + 1 %>. <%= question.content %>
         <br>
         <% question.choices.each do |choice| %>
-          <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %>> <%= choice.content %><br>
+          <% if @replies.select {|reply| reply.choice_id == choice.id}.length > 0 %>
+            <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %> checked='checked'> <%= choice.content %><br>
+          <% else %>
+            <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %>> <%= choice.content %><br>
+          <% end %>
         <% end %>
         <br><br>
       <% end %>
       <input type="hidden" name="survey_id" value="<%= @survey.id %>">
-      <input type="submit" value="Submit!">
+      <input type="submit" id="submit_buttons" value="Submit!">
     </form>
   </div>
-</div>
-
-<div class="row" style="margin:-830px 35px 0 60px;">
-    <img class="watermark" src="/images/rabbit.png" width="250" alt="">
 </div>

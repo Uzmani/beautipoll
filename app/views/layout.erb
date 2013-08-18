@@ -28,6 +28,7 @@
       <% if current_user %>
         <li><a id="create-survey" href='#'>Create a Survey</a></li>
         <li><a id="take-survey" href="/take_survey">Take a Survey</a></li>
+        <li><a id="my-profile" href="/">My Profile</a></li>
         <li><a id="sign-out" href="/sessions/<%= current_user.id %>">Sign Out</a></li>
       <% else %>
         <li><a href="/sessions/new">Sign In</a></li>
