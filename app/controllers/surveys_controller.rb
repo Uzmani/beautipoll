@@ -1,12 +1,4 @@
 post '/surveys/new' do
-  if params[:image]
-    File.open('public/uploads/' + params[:image][:filename], "w") do |f|
-      f.write(params[:image][:tempfile].read)
-    end
-    image_url = "/uploads/#{params[:image][:filename]}"
-  else
-    image_url = nil
-  end
   @survey = Survey.create({
     title: params[:title],
     visibility: (params[:make_private] ? 1 : 0),
