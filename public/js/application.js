@@ -23,7 +23,6 @@ $(document).ready(function () {
       },
       Cancel: function() {
         $( this ).dialog("close");
-        window.location.href="/";
       }
     },
     close: function() {}
@@ -36,7 +35,7 @@ $(document).ready(function () {
     width: 750,
     modal: true,
     buttons: {
-      "Add your question!": function() {
+      "Add my question!": function() {
 
       var content = $("#question_content"),
       choice = $("input[name='choice']").map(function(){
@@ -51,6 +50,55 @@ $(document).ready(function () {
 
       },
       Cancel: function() {
+        $(this).dialog("close");
+      }
+    },
+  });
+
+  $("#edit-form").dialog({
+    dialogClass: "no-close",
+    autoOpen: false,
+    height: 575,
+    width: 750,
+    modal: true,
+    buttons: {
+      "Save my edits": function() {
+
+      var content = $("#question_content"),
+      choice = $("input[name='choice']").map(function(){
+        return $(this).val();
+      }).get().join(".y.y.");
+
+      var data = "question_num="+window.question_num+"&content="+content.val()+"&choice="+choice;
+      $.post('/surveys/edit_q', data, function(response) {
+        window.location.href = "/surveys/edit/" + response;
+      });
+      $(this).dialog("close");
+
+      },
+      Cancel: function() {
+        $(this).dialog("close");
+      }
+    },
+  });
+
+  $("#delete-form").dialog({
+    dialogClass: "no-close",
+    autoOpen: false,
+    height: 175,
+    width: 750,
+    modal: true,
+    buttons: {
+      "Yes, I'm sure!": function() {
+
+      var data = "question_num="+window.question_num;
+      $.post('/surveys/delete_q', data, function(response) {
+        window.location.href = "/surveys/edit/" + response;
+      });
+      $(this).dialog("close");
+
+      },
+      "Ack, no. Get me out of here!": function() {
         $(this).dialog("close");
       }
     },
@@ -202,6 +250,18 @@ $(document).ready(function () {
 
   $(document).on("click", "#complete_survey", function() {
     $("#thanks").dialog('open');
+  });
+
+  $(document).on('click', '#edit_question', function(e) {
+    e.preventDefault();
+    window.question_num = $(this).data("id");
+    $('#edit-form').dialog('open');
+  });
+
+  $(document).on('click', '#delete_question', function(e) {
+    e.preventDefault();
+    window.question_num = $(this).data("id");
+    $('#delete-form').dialog('open');
   });
 
   setTimeout(function() {
