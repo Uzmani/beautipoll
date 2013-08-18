@@ -15,7 +15,8 @@ $(document).ready(function () {
       oReq.send(new FormData(formElement));
       oReq.onload = function (oEvent) {
         var response = oReq.response;
-        $('.container').html(response);
+        console.log(response);
+        window.location.href = "/surveys/edit/" + response;
       }
 
       $(this).dialog("close");
@@ -45,7 +46,7 @@ $(document).ready(function () {
 
       var data = "content="+content.val()+"&choice="+choice;
       $.post('/surveys/new_q', data, function(response) {
-        $('.container').html(response);
+        window.location.href = "/surveys/edit";
       });
       $(this).dialog("close");
 

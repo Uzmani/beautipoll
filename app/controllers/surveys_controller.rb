@@ -1,5 +1,4 @@
 post '/surveys/new' do
-  p params
   if params[:image]
     File.open('public/uploads/' + params[:image][:filename], "w") do |f|
       f.write(params[:image][:tempfile].read)
@@ -17,11 +16,18 @@ post '/surveys/new' do
     })
   @questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
-  erb :'surveys/new_survey', :layout => false
+  @survey.id.to_json
+  # erb :'surveys/new_survey', :layout => false
 end
 
 get '/surveys/new_q' do
   erb :'surveys/question'
+end
+
+get '/surveys/edit/:id' do
+  @survey = Survey.find_by_id(params[:id])
+  @questions = Question.where(survey_id: @survey.id)
+  erb :'surveys/new_survey'
 end
 
 get '/surveys/escape' do
