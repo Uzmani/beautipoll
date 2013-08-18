@@ -61,6 +61,13 @@ body {
   text-decoration: none;
 }
 
+#edit-button {
+  padding: 5px 18px;
+}
+
+#survey-url {
+  padding-top: 24px;
+}
 
 #new-question-border, #complete-survey-border {
   border-color: none;
