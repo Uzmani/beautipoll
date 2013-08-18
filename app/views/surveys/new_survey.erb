@@ -9,12 +9,12 @@
 
 <h2>Questions</h2>
 <br><br>
-<% @questions.each_with_index do |index, question| %>
+<% @questions.each_with_index do |question, index| %>
   
   <p><%= "#{index + 1}. #{question.content}" %></p>
   <% question.choices.each do |choice| %>
-    <br>
     <%= choice.content %>
+    <br>
   <% end %>
   <br><br>
   

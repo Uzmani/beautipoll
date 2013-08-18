@@ -42,6 +42,7 @@ $(document).ready(function () {
       choice = $("input[name='choice']").map(function(){
         return $(this).val();
       }).get().join(".y.y.");
+      debugger
 
       var data = "content="+content.val()+"&choice="+choice;
       $.post('/surveys/new_q', data, function(response) {
@@ -100,7 +101,7 @@ $(document).ready(function () {
 
   function radioAnswer(){
     if ($('.answer_fields').html() == ""){
-      var $fieldType = $("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      var $fieldType = $("<input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       $('.answer_fields').html($fieldType);
     } else {
           if ($('.answer_fields #sortable').length >= 1){
@@ -117,7 +118,7 @@ $(document).ready(function () {
 
   function checkboxAnswer(){
     if ($('.answer_fields').html() == ""){
-      var $fieldType = $("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      var $fieldType = $("<input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
     $('.answer_fields').html($fieldType);
   } else {
       if ($('.answer_fields #sortable').length >= 1){
@@ -167,7 +168,7 @@ $(document).ready(function () {
 
   function clearFields(){
     $('.answer_fields').html('');
-    $('.answer_fields').removeClass("text radio checkbox ranking");
+    // $('.answer_fields').removeClass("text radio checkbox ranking");
   }
 
   bindEvents();
@@ -178,13 +179,13 @@ $(document).ready(function () {
     var format = $('.question_type').val();
     switch (format) {
     case "text":
-      $('.answer_fields').append("<input type='hidden' class = 'format'><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       break;
     case "radio_button":
-      $('.answer_fields').append("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       break;
     case "checkbox":
-      $('.answer_fields').append("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       break;
     case "ranking":
       $('.answer_fields').append("<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div>");

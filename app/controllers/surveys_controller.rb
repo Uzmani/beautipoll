@@ -29,6 +29,7 @@ get '/surveys/escape' do
 end
 
 post '/surveys/new_q' do
+  p params
   @survey = Survey.find(session[:survey_id]) rescue nil
   @question = Question.create({
     survey: @survey,
