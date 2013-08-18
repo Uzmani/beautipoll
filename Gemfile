@@ -18,10 +18,10 @@ gem 'bcrypt-ruby'
 
 gem 'shotgun'
 gem 'pry'
+  gem 'rspec'
 
 group :development, :test do
   gem 'faker'
-  gem 'rspec'
   gem 'factory_girl', "~> 4.0"
   gem 'simplecov', require: false
 end
