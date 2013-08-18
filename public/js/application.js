@@ -127,18 +127,31 @@ $(document).ready(function () {
     else {
       var choice = $(".text_answer").map(function(){
         return $(this).val();
-      }).get() 
+      }).get(); 
       $('.format').remove();
       $('.text_answer').remove();
       $('br').remove();
       $.each(choice, function(index, input){
         console.log(input)
         var html = $('.answer_fields').html();
-        $('.answer_fields').html(html+"<ul id='sortable' class='format'><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text' value='"+input+"''></div>");
+        $('.answer_fields').html(html+"<ul id='sortable' class='format'><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value='"+input+"''></div>");
       })
       // $sortAnswers.sortable();
     }
     // $('.answer_fields').addClass('ranking');
+  }
+
+  function textField(){
+    var choice = $(".text_answer").map(function(){
+        return $(this).val();
+      }).get(); 
+      $('.format').remove();
+      $('.text_answer').remove();
+      $('br').remove();
+      $.each(choice, function(index, input){
+        return input;
+      };
+    }
   }
 
   function clearFields(){
