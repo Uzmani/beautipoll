@@ -87,8 +87,15 @@ $(document).ready(function () {
     if ($('.answer_fields').html() == ""){
       var $fieldType = $("<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>")
       $('.answer_fields').html($fieldType);
-    } else {  
-      $('.format').replaceWith("<input type='hidden' class='format'>")
+    } else {
+        if ($.contains('.answer_fields', 'ul'){
+          $.each(textField(), function(index, input){
+            var html = $('.answer_fields').html();
+            $('.answer_fields').html(html+"<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer' value='"+input+"'><br>")
+        }
+        else {  
+          $('.format').replaceWith("<input type='hidden' class='format'>")
+        }
     }
     // $('.answer_fields').addClass('text');
   }
@@ -131,12 +138,16 @@ $(document).ready(function () {
       $('.format').remove();
       $('.text_answer').remove();
       $('br').remove();
+      $('.answer_fields').html("<ul id='sortable' class='format'>");
       $.each(choice, function(index, input){
         console.log(input)
         var html = $('.answer_fields').html();
-        $('.answer_fields').html(html+"<ul id='sortable' class='format'><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value='"+input+"''></div>");
+        $('.answer_fields').html(html+"<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value='"+input+"''></div>");
       })
-      // $sortAnswers.sortable();
+      var html = $('.answer_fields').html();
+      $('.answer_fields').html(html+"</ul>")
+      var $sortAnswers = $('#sortable')
+      $sortAnswers.sortable();
     }
     // $('.answer_fields').addClass('ranking');
   }
@@ -145,12 +156,8 @@ $(document).ready(function () {
     var choice = $(".text_answer").map(function(){
         return $(this).val();
       }).get(); 
-      $('.format').remove();
-      $('.text_answer').remove();
-      $('br').remove();
-      $.each(choice, function(index, input){
-        return input;
-      };
+      $('ul').remove();
+      return choice;
     }
   }
 
@@ -182,11 +189,13 @@ $(document).ready(function () {
       break;
     case "ranking":
       console.log("ranking add")
-      $('#making_questions').html(html+"<ul id='sortable'><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div></ul>");
+      $('#sortable').append("<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div>");
       break;
     };
     return false;
   });
+
+  //<ul id='sortable'></ul>
 
   $(document).on('click', '#create-survey', function(e) {
     e.preventDefault();
