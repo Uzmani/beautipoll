@@ -23,19 +23,14 @@ get '/surveys/new_q' do
 end
 
 get '/surveys/edit/:id' do
+  @user = User.find(session[:user_id]) rescue nil
   @survey = Survey.find_by_id(params[:id])
   @questions = Question.where(survey_id: @survey.id)
-  erb :'surveys/new_survey'
-end
-
-get '/surveys/escape' do
-  @survey = Survey.find(session[:survey_id]) rescue nil
-  @questions = Question.where(survey_id: @survey.id)
-  erb :'surveys/new_survey', :layout => false
+  check_correct_user
+  @correct_user ? (erb :'surveys/new_survey') : (redirect '/')
 end
 
 post '/surveys/new_q' do
-  p params
   @survey = Survey.find(session[:survey_id]) rescue nil
   @question = Question.create({
     survey: @survey,
@@ -52,12 +47,6 @@ post '/surveys/new_q' do
   session[:survey_id] = @survey.id
   @survey.id.to_json
 end
-
-# get '/surveys/edit/:url' do
-#   @survey = Survey.find_by_url(params[:url]) rescue nil
-#   @questions = Question.where(survey_id: @survey.id)
-#   erb :'surveys/new_survey'
-# end
 
 get '/surveys/complete' do
   @survey = Survey.find(session[:survey_id]) rescue nil
