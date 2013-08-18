@@ -7,14 +7,12 @@ body {
 }
 
 .container {
+  background-color: white;
+  opacity: .8;
   margin: 20px auto;
   width: 1000px;
   padding: 0px 20px 20px 20px;
-}
-
-.container h1 {
-  font-size: 17pt;
-
+  border-radius: 20px;
 }
 
 #survey-buttons {
@@ -92,4 +90,8 @@ form.quirks {
 .watermark {
   opacity: 0.0;
   padding: 70% 0 0 8%;
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
 }
