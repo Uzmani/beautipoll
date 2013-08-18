@@ -15,11 +15,17 @@ post '/surveys/new' do
   end
   @questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
-  erb :'surveys/new_survey', :layout => false
+  @survey.id.to_json
 end
 
 get '/surveys/new_q' do
   erb :'surveys/question'
+end
+
+get '/surveys/edit/:id' do
+  @survey = Survey.find_by_id(params[:id])
+  @questions = Question.where(survey_id: @survey.id)
+  erb :'surveys/new_survey'
 end
 
 get '/surveys/escape' do
