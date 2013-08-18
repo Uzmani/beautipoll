@@ -1,8 +1,3 @@
-get '/surveys/new' do
-  session[:survey_id] = nil
-  erb :'surveys/title'
-end
-
 post '/surveys/new' do
   p params
   if params[:image]
