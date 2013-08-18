@@ -45,8 +45,14 @@ post '/surveys/new_q' do
   erb :'surveys/new_survey', :layout => false
 end
 
-post '/surveys/complete' do
-  #give user url link
+get '/surveys/edit/:url' do
+  @survey = Survey.find_by_url(params[:url]) rescue nil
+  @questions = Question.where(survey_id: @survey.id)
+  erb :'surveys/new_survey'
+end
+
+get '/surveys/complete' do
+  @survey = Survey.find(session[:survey_id]) rescue nil
   session[:survey_id] = nil
   erb :'surveys/thanks'
 end
@@ -55,7 +61,7 @@ get '/take_survey' do
   @user = User.find(session[:user_id]) rescue nil
   @survey = Survey.where(visibility: 0).sample
   @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: @user.id).first rescue nil
-  @replies = Reply.where(completed_survey_id: @current_survey.id) if @current_survey
+  @replies = (@current_survey ? (Reply.where(completed_survey_id: @current_survey.id)) : [])
   session[:taking_survey] = @survey.id if @survey
   erb :"surveys/take_survey"
 end

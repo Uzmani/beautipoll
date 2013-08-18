@@ -9,9 +9,9 @@
 
 <h2>Questions</h2>
 <br><br>
-<% @questions.each do |question| %>
+<% @questions.each_with_index do |index, question| %>
   
-  <p><%= question.content %></p>
+  <p><%= "#{index + 1}. #{question.content}" %></p>
   <% question.choices.each do |choice| %>
     <br>
     <%= choice.content %>
