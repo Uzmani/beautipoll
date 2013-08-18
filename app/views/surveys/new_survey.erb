@@ -1,6 +1,6 @@
-<a href="/surveys/new_q" style="float:right" id="new_question"><button>Create a new question!</button></a>
+<a href="/surveys/new_q" style="float:right" id="new_question"><button id="new_question">Create a new question!</button></a>
 
-<a href="/surveys/complete" style="float:right" id="complete_survey"><button>Complete my survey!</button></a>
+<a href="/surveys/complete" style="float:right" id="complete_survey"><button id="complete_survey">Complete my survey!</button></a>
 
 <img width="50" style="float: left" src="<%= @survey.image_url %>" />
 <h1><%= @survey.title %></h1>
@@ -9,9 +9,9 @@
 
 <h2>Questions</h2>
 <br><br>
-<% @questions.each do |question| %>
+<% @questions.each_with_index do |index, question| %>
   
-  <p><%= question.content %></p>
+  <p><%= "#{index + 1}. #{question.content}" %></p>
   <% question.choices.each do |choice| %>
     <br>
     <%= choice.content %>

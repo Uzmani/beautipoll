@@ -1,3 +1,13 @@
+<% if @error && @error.length > 0 %>
+  <div id="myModal" class="reveal-modal">
+    <h1>Error!</h1>
+    <% @error.each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="col-lg-4" >
     <h1>Great to see you, <%=@user.name.capitalize %>!</h1>
@@ -31,8 +41,10 @@
               <hr>
               <div class="col-lg-7">
                 <p class="lead"><%= survey.title %></p>
+                <a href="/take_survey/<%= survey.url %>"><i><%= "http://localhost:9393/take_survey/#{survey.url}" %></i></p>
               </div>
               <div class="col-lg-4">
+                <a class="btn btn-default"  href="/surveys/edit/<%= survey.url %>">Edit Survey</a>
                 <a class="btn btn-default"  href="/survey/<%= survey.id %>">View Results</a>
               </div>
             </div>
@@ -52,9 +64,16 @@
                 <hr>
                 <div class="col-lg-7">
                   <p class="lead"><%= survey.survey.title %></p>
+                  <% if Reply.where(completed_survey_id: survey.id).length >= survey.survey.questions.length %>
+                  <p><i>Completed!</i></p>
+                  <% end %>
                 </div>
                 <div class="col-lg-4">
-                  <a class="btn btn-default"  href="/take_survey/<%= survey.id %>">Continue survey</a>
+                  <% if Reply.where(completed_survey_id: survey.id).length >= survey.survey.questions.length %>
+                    <a class="btn btn-default"  href="/take_survey/<%= survey.survey.url %>">Edit my answers</a>
+                  <% else %>
+                    <a class="btn btn-default"  href="/take_survey/<%= survey.survey.url %>">Continue survey</a>
+                  <% end %>
                 </div>
               </div>
             </li>

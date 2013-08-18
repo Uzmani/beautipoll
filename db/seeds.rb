@@ -2,6 +2,7 @@ require 'faker'
 
 survey = Survey.create({
   title: "Random Survey",
+  url: "awf32232",
   user: User.find(1)
   })
 
