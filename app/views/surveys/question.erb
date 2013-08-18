@@ -1,15 +1,32 @@
 <div id="question-form" title="Add a Question">
 
+  <h4>Choice Format</h4>
+    <select name="question_type" id="question_type" class="question_type">
+      <option id="default_select" value="default_select">Choose Format</option>
+      <option id="#text" value="text">Text</option>
+      <option id="#radio_button" value="radio_button">Radio Button</option>
+      <option id="#checkbox" value="checkbox">Checkbox</option>
+      <option id="#ranking" value="ranking">Ranking</option>
+    </select>
   <form >
+
     <button style="float:right" id="add_choice">Add another choice!</button>
     <br><br>
-    <div id="making_questions">
+    <!-- <div id="making_questions">
     <fieldset>
       <label for="content">Content: </label>
       <input type="text" id="question_content" name="content" placeholder="Enter your question here" size="50" required>
       Answer Choices: 
       <input type="text" name="choice" placeholder="Add an answer choice!">
       <input type="text" name="choice" placeholder="Add an answer choice!">
+    </div> -->
+
+    <div id="making_questions">
+    <fieldset>
+      <label for="content">Content: </label>
+      <input type="text" id="question_content" name="content" placeholder="Enter your question here" size="50" required>
+      Answer Choices: 
+      <div class='answer_fields'></div>
     </div>
   </form>
 </div>
