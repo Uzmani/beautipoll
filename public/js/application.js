@@ -2,7 +2,7 @@ $(document).ready(function () {
 
   $("#title-form").dialog({
     dialogClass: "no-close",
-    autoOpen: true,
+    autoOpen: false,
     height: 325,
     width: 750,
     modal: true,
@@ -65,8 +65,13 @@ $(document).ready(function () {
     return false;
   });
 
+  $(document).on('click', '#create-survey', function(e) {
+    e.preventDefault();
+    $('#title-form').dialog('open');
+  });
+
   $(document).on("click", "#complete_survey", function() {
-    $("#thanks").dialog();
+    $("#thanks").dialog('open');
   });
 
 	setTimeout(function() {
