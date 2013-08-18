@@ -15,7 +15,6 @@ $(document).ready(function () {
       oReq.send(new FormData(formElement));
       oReq.onload = function (oEvent) {
         var response = oReq.response;
-        console.log(response);
         window.location.href = "/surveys/edit/" + response;
       }
 
@@ -43,27 +42,23 @@ $(document).ready(function () {
       choice = $("input[name='choice']").map(function(){
         return $(this).val();
       }).get().join(".y.y.");
-      debugger
 
       var data = "content="+content.val()+"&choice="+choice;
       $.post('/surveys/new_q', data, function(response) {
-        window.location.href = "/surveys/edit";
+        window.location.href = "/surveys/edit/" + response;
       });
       $(this).dialog("close");
 
       },
       Cancel: function() {
         $(this).dialog("close");
-        $.get('/surveys/escape', function(response) {
-          $('.container').html(response);
-        });
       }
     },
   });
 
   function bindEvents() {
     $('.question_type').change(function(){
-      // clearFields();
+      $('#default_select').replaceWith("<option id='default_select' value='default_select' disabled>Choose Format</option>")
       var val = $(this).val()
       if (val == "text"){
         textAnswer();
