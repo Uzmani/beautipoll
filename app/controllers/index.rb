@@ -6,10 +6,11 @@ get '/' do
   @error = session[:error]
   session[:error] = nil
   @surveys_taken = CompletedSurvey.where(user_id: @user_id)
-  @taking_survey = session[:taking_survey]
-  url = Survey.find(@taking_survey).url if @taking_survey
-  session[:taking_survey] = nil
-  @user ? (@taking_survey ? (redirect "/take_survey/#{url}") : (erb :"profile/profile")) : (erb :index)
+  # @taking_survey = session[:taking_survey]
+  # url = Survey.find(@taking_survey).url if @taking_survey
+  # session[:taking_survey] = nil
+  # (@taking_survey ? (redirect "/take_survey/#{url}") : 
+  @user ? (erb :"profile/profile") : (erb :index)
 end
 
 #----------- SESSIONS -----------

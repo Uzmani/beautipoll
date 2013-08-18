@@ -56,6 +56,9 @@ end
 get '/take_survey' do
   @user = User.find(session[:user_id]) rescue nil
   @survey = Survey.where(visibility: 0).sample
+  @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: @user.id).first rescue nil
+  @replies = Reply.where(completed_survey_id: @current_survey.id) if @current_survey
+  session[:taking_survey] = @survey.id if @survey
   erb :"surveys/take_survey"
 end
 
@@ -64,10 +67,10 @@ get '/take_survey/:url' do
   @survey = Survey.find_by_url(params[:url]) rescue nil
   @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: @user.id).first rescue nil
   @replies = Reply.where(completed_survey_id: @current_survey.id) if @current_survey
-  session[:taking_survey] = @survey.id
+  session[:taking_survey] = @survey.id if @survey
   check_user_login
   check_survey_exists
-  @survey ? (erb :"surveys/take_survey") : (redirect '/')
+  @user ? (@survey ? (erb :"surveys/take_survey") : (redirect '/')) : (redirect '/')
 end
 
 post '/answer_survey' do
@@ -83,7 +86,7 @@ post '/answer_survey' do
   params.each do |question_id, choice|
     if question_id.include?("choice")
       current_choice = Choice.find(choice.join.to_i) rescue nil
-      Reply.create({choice: current_choice, completed_survey: @completed_survey})
+      Reply.create({choice: current_choice, completed_survey: @current_survey})
     end
   end
   session[:taking_survey] = nil
