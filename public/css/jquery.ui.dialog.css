@@ -14,6 +14,8 @@
 	left: 0;
 	padding: .2em;
 	outline: 0;
+				background-color: solid #37B6CE;
+
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
@@ -40,7 +42,7 @@
 	position: relative;
 	border: 0;
 	padding: .5em 1em;
-	background: none;
+	/*background: none;*/
 	overflow: auto;
 }
 .ui-dialog .ui-dialog-buttonpane {
@@ -69,5 +71,7 @@
 }
 
 .ui-widget-content{
-	background-color: gray;
+	/*background-color: gray;*/
+				background-color: #37B6CE;
+
 }
