@@ -122,10 +122,17 @@ $(document).ready(function () {
   bindEvents();
 
   $(document).on("click", "#add_choice", function() {
+
     var format = $('.question_type').val();
-    switch (format) {  //CLOSE SWITCH STATEMENT
+    switch (format) {
+    case: "text"
+      $('#making_questions').append("<input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
     case "radio_button":
-      $('#making_questions').append("<input type='radio' name='choice' class='radio_answer' value=''><input type='text' class='text_answer' placeholder='Answer'><br>")
+      $('#making_questions').append("<input type='radio' name='choice' class='radio_answer' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+    case: "checkbox"
+      $('#making_questions').append("<input type='checkbox' name='choice' class='checkbox_answer' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+    case: "ranking"
+      $('#making_questions').append("<ul id='sortable'><li class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></li>");
     };
     return false;
   });
