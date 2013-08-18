@@ -1,20 +1,18 @@
 post '/surveys/new' do
-  p params
-  if params[:image]
-    File.open('public/uploads/' + params[:image][:filename], "w") do |f|
-      f.write(params[:image][:tempfile].read)
-    end
-    image_url = "/uploads/#{params[:image][:filename]}"
-  else
-    image_url = nil
-  end
   @survey = Survey.create({
     title: params[:title],
-    image_url: image_url,
     visibility: (params[:make_private] ? 1 : 0),
     url: SecureRandom.hex(4),
     user: (User.find(session[:user_id]) rescue nil)
     })
+  if params[:image]
+    image_url = "/uploads/#{@survey.id}icon." + params[:image][:filename].split(".").last
+    File.open("public#{image_url}", "w") do |f|
+      f.write(params[:image][:tempfile].read)
+    end
+    @survey.image_url = image_url
+    @survey.save
+  end
   @questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
   erb :'surveys/new_survey', :layout => false

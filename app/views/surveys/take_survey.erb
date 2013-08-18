@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-lg-4" id="title_header">
-    <h1><%= @user.name.capitalize %>, welcome to <%= @survey.title %>!  Thanks for taking this survey!</h1>
+    <h1><%= @user.name.capitalize %>, welcome to</h1>
+    <%= "<img src=\"#{@survey.image_url}\">" if @survey.image_url %><h1><%= @survey.title %>!</h1>
+    <h2>Thanks for taking this survey!</h2>
   </div>
 </div>
 
