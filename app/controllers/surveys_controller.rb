@@ -24,8 +24,8 @@ end
 
 get '/surveys/edit/:id' do
   @user = User.find(session[:user_id]) rescue nil
-  @survey = Survey.find_by_id(params[:id])
-  @questions = Question.where(survey_id: @survey.id)
+  @survey = Survey.find_by_id(params[:id]) rescue nil
+  @questions = Question.where(survey_id: @survey.id) if @survey
   check_correct_user
   @correct_user ? (erb :'surveys/new_survey') : (redirect '/')
 end
