@@ -24,7 +24,6 @@ post '/surveys/new' do
   @questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
   @survey.id.to_json
-  # erb :'surveys/new_survey', :layout => false
 end
 
 get '/surveys/new_q' do
