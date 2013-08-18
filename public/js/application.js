@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
   $("#title-form").dialog({
-    autoOpen: true,
+    dialogClass: "no-close",
+    autoOpen: false,
     height: 325,
     width: 750,
     modal: true,
@@ -10,7 +11,7 @@ $(document).ready(function () {
 
       var formElement = document.getElementById("title-input");
       var oReq = new XMLHttpRequest();
-      oReq.open("post", "http://localhost:9393/surveys/new");
+      oReq.open("post", "/surveys/new");
       oReq.send(new FormData(formElement));
       oReq.onload = function (oEvent) {
         var response = oReq.response;
@@ -29,6 +30,7 @@ $(document).ready(function () {
   });
 
   $("#question-form").dialog({
+    dialogClass: "no-close",
     autoOpen: true,
     height: 575,
     width: 750,
@@ -128,8 +130,13 @@ $(document).ready(function () {
     return false;
   });
 
+  $(document).on('click', '#create-survey', function(e) {
+    e.preventDefault();
+    $('#title-form').dialog('open');
+  });
+
   $(document).on("click", "#complete_survey", function() {
-    $("#thanks").dialog();
+    $("#thanks").dialog('open');
   });
 
   setTimeout(function() {
