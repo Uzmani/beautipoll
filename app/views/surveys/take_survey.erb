@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-4" id="title_header">
+  <div class="col-lg-5" id="title_header">
     <h1><%= @user.name.capitalize %>, welcome to</h1>
     <%= "<img width='60' src=\"#{@survey.image_url}\">" if @survey.image_url %><h1><%= @survey.title %>!</h1>
     <h2>Thanks for taking this survey!</h2>
@@ -7,7 +7,7 @@
 </div>
 
 
-<div class="row" style="margin:-20px 0 0 650px;">
+<div class="row" style="margin: 0 0 200px 550px;">
   <div class="col-lg-13" style="padding-right:40px">
     <form action="/answer_survey" method="post">
       <h3> Questions: </h3>

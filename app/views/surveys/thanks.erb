@@ -1,7 +1,7 @@
 <div id="thanks" title="Thanks for creating your survey!">
   <h2>Your survey web link:</h2>
   <p>Copy, paste and email this web link to your survey takers!</p>
-  <a href="<%= @survey.url %>">http://localhost:9393/take_survey/<%= @survey.url %></a>
+  <a href="<%= "/take_survey/#{@survey.url}" %>">http://localhost:9393/take_survey/<%= @survey.url %></a>
   <p>Copy and paste the HTML code below, to add your web link to any webpage!</p>
   <xmp><a href="http://localhost:9393/take_survey/<%= @survey.url %>">http://localhost:9393/take_survey/<%= @survey.url %></a></xmp>
 </div>

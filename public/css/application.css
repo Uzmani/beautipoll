@@ -7,38 +7,77 @@ body {
 }
 
 #title-form {
-  border-radius: 20px;
+  border-radius: 16px;
 }
-
-#new_question, #complete_survey {
-  border-radius: 20px;
-}
-
 
 .container {
   background-color: white;
   opacity: .8;
   margin: 20px auto;
-  width: 1000px;
+  width: 90%;
   padding: 0px 20px 20px 20px;
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
-#submit_buttons {
-  border-radius: 20px;
+#submit_buttons, #new-question-border *, #complete-survey-border * {
+  background-color: #fff;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
 }
+
+#survey-buttons:focus,
+#submit_buttons:focus, 
+#new-question:focus,
+#complete-survey:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+#survey-buttons:hover,
+#survey-buttons:focus,
+#submit_buttons:hover,
+#submit_buttons:focus, 
+#new-question:focus,
+#new-question:hover,
+#complete-survey:focus,
+#complete-survey:hover {
+  background-color: #ddd;
+  text-decoration: none;
+}
+
+
+#new-question-border, #complete-survey-border {
+  border-color: none;
+  padding-left: 16px;
+}
+
 
 #title_header {
-  padding: 0 0 0 0;
-  margin-right: 100%;
-  /*margin-left: 100%;*/
+  padding: 0 0 0 24px;
 }
 
 #survey-buttons {
-  font-weight: lighter;
   font-family: sans-serif;
   text-decoration: none;
-  color: gray;
+  color: black;
+  background-color: #fff;
+  border-color: #ddd;
 }
 
 nav {

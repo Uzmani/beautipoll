@@ -15,7 +15,6 @@ $(document).ready(function () {
       oReq.send(new FormData(formElement));
       oReq.onload = function (oEvent) {
         var response = oReq.response;
-        console.log(response);
         window.location.href = "/surveys/edit/" + response;
       }
 
@@ -24,7 +23,6 @@ $(document).ready(function () {
       },
       Cancel: function() {
         $( this ).dialog("close");
-        window.location.href="/";
       }
     },
     close: function() {}
@@ -37,7 +35,7 @@ $(document).ready(function () {
     width: 750,
     modal: true,
     buttons: {
-      "Add your question!": function() {
+      "Add my question!": function() {
 
       var content = $("#question_content"),
       choice = $("input[name='choice']").map(function(){
@@ -46,23 +44,69 @@ $(document).ready(function () {
 
       var data = "content="+content.val()+"&choice="+choice;
       $.post('/surveys/new_q', data, function(response) {
-        window.location.href = "/surveys/edit";
+        window.location.href = "/surveys/edit/" + response;
       });
       $(this).dialog("close");
 
       },
       Cancel: function() {
         $(this).dialog("close");
-        $.get('/surveys/escape', function(response) {
-          $('.container').html(response);
-        });
+      }
+    },
+  });
+
+  $("#edit-form").dialog({
+    dialogClass: "no-close",
+    autoOpen: false,
+    height: 575,
+    width: 750,
+    modal: true,
+    buttons: {
+      "Save my edits": function() {
+
+      var content = $("#question_content"),
+      choice = $("input[name='choice']").map(function(){
+        return $(this).val();
+      }).get().join(".y.y.");
+
+      var data = "question_num="+window.question_num+"&content="+content.val()+"&choice="+choice;
+      $.post('/surveys/edit_q', data, function(response) {
+        window.location.href = "/surveys/edit/" + response;
+      });
+      $(this).dialog("close");
+
+      },
+      Cancel: function() {
+        $(this).dialog("close");
+      }
+    },
+  });
+
+  $("#delete-form").dialog({
+    dialogClass: "no-close",
+    autoOpen: false,
+    height: 175,
+    width: 750,
+    modal: true,
+    buttons: {
+      "Yes, I'm sure!": function() {
+
+      var data = "question_num="+window.question_num;
+      $.post('/surveys/delete_q', data, function(response) {
+        window.location.href = "/surveys/edit/" + response;
+      });
+      $(this).dialog("close");
+
+      },
+      "Ack, no. Get me out of here!": function() {
+        $(this).dialog("close");
       }
     },
   });
 
   function bindEvents() {
     $('.question_type').change(function(){
-      // clearFields();
+      $('#default_select').replaceWith("<option id='default_select' value='default_select' disabled>Choose Format</option>")
       var val = $(this).val()
       if (val == "text"){
         textAnswer();
@@ -101,7 +145,7 @@ $(document).ready(function () {
 
   function radioAnswer(){
     if ($('.answer_fields').html() == ""){
-      var $fieldType = $("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      var $fieldType = $("<input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       $('.answer_fields').html($fieldType);
     } else {
           if ($('.answer_fields #sortable').length >= 1){
@@ -118,7 +162,7 @@ $(document).ready(function () {
 
   function checkboxAnswer(){
     if ($('.answer_fields').html() == ""){
-      var $fieldType = $("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      var $fieldType = $("<input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
     $('.answer_fields').html($fieldType);
   } else {
       if ($('.answer_fields #sortable').length >= 1){
@@ -168,7 +212,7 @@ $(document).ready(function () {
 
   function clearFields(){
     $('.answer_fields').html('');
-    $('.answer_fields').removeClass("text radio checkbox ranking");
+    // $('.answer_fields').removeClass("text radio checkbox ranking");
   }
 
   bindEvents();
@@ -179,13 +223,13 @@ $(document).ready(function () {
     var format = $('.question_type').val();
     switch (format) {
     case "text":
-      $('.answer_fields').append("<input type='hidden' class = 'format'><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       break;
     case "radio_button":
-      $('.answer_fields').append("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       break;
     case "checkbox":
-      $('.answer_fields').append("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       break;
     case "ranking":
       $('.answer_fields').append("<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div>");
@@ -206,6 +250,18 @@ $(document).ready(function () {
 
   $(document).on("click", "#complete_survey", function() {
     $("#thanks").dialog('open');
+  });
+
+  $(document).on('click', '#edit_question', function(e) {
+    e.preventDefault();
+    window.question_num = $(this).data("id");
+    $('#edit-form').dialog('open');
+  });
+
+  $(document).on('click', '#delete_question', function(e) {
+    e.preventDefault();
+    window.question_num = $(this).data("id");
+    $('#delete-form').dialog('open');
   });
 
   setTimeout(function() {

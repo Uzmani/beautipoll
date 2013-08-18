@@ -24,15 +24,11 @@ end
 
 get '/surveys/edit/:id' do
   @user = User.find(session[:user_id]) rescue nil
-  @survey = Survey.find_by_id(params[:id])
-  @questions = Question.where(survey_id: @survey.id)
-  erb :'surveys/new_survey'
-end
-
-get '/surveys/escape' do
-  @survey = Survey.find(session[:survey_id]) rescue nil
-  @questions = Question.where(survey_id: @survey.id)
-  erb :'surveys/new_survey', :layout => false
+  @survey = Survey.find_by_id(params[:id]) rescue nil
+  session[:survey_id] = @survey.id if @survey
+  @questions = Question.where(survey_id: @survey.id) if @survey
+  check_correct_user
+  @correct_user ? (erb :'surveys/new_survey') : (redirect '/')
 end
 
 post '/surveys/new_q' do
@@ -49,13 +45,32 @@ post '/surveys/new_q' do
       }) unless choice == ""
   end
   @questions = Question.where(survey_id: @survey.id)
-  erb :'surveys/new_survey', :layout => false
+  session[:survey_id] = @survey.id
+  @survey.id.to_json
 end
 
-get '/surveys/edit/:url' do
-  @survey = Survey.find_by_url(params[:url]) rescue nil
+post '/surveys/edit_q' do
+  @survey = Survey.find(session[:survey_id]) rescue nil
+  @question = Question.find(params[:question_num])
+  @question.content = params[:content]
+  @question.save
+  choices = params[:choice].split(".y.y.")
+  choices.each do |choice|
+    Choice.create({
+      question: @question,
+      content: choice
+      }) unless choice == ""
+  end
   @questions = Question.where(survey_id: @survey.id)
-  erb :'surveys/new_survey'
+  session[:survey_id] = @survey.id
+  @survey.id.to_json
+end
+
+post '/surveys/delete_q' do
+  @survey = Survey.find(session[:survey_id]) rescue nil
+  Question.find(params[:question_num]).destroy rescue nil
+  @questions = Question.where(survey_id: @survey.id)
+  @survey.id.to_json
 end
 
 get '/surveys/complete' do
