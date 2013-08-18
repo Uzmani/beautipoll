@@ -6,7 +6,10 @@ get '/' do
   @error = session[:error]
   session[:error] = nil
   @surveys_taken = CompletedSurvey.where(user_id: @user_id)
-  @user ? (erb :"profile/profile") : (erb :index)
+  @taking_survey = session[:taking_survey]
+  url = Survey.find(@taking_survey).url if @taking_survey
+  session[:taking_survey] = nil
+  @user ? (@taking_survey ? (redirect "/take_survey/#{url}") : (erb :"profile/profile")) : (erb :index)
 end
 
 #----------- SESSIONS -----------
@@ -35,7 +38,5 @@ end
 post '/users' do
   validate_and_create_user
   @user_id = session[:user_id]
-  @user = User.find(@user_id) rescue nil
-  @surveys_taken = CompletedSurvey.where(user_id: @user_id)
-  @user_id ? (erb :"profile/profile") : (redirect '/')
+  redirect '/'
 end
