@@ -36,6 +36,46 @@ $(document).ready(function () {
     buttons: {
       "Add your question!": function() {
 
+      var content = $("#question_content"),
+      choice = $("input[name='choice']").map(function(){
+        return $(this).val();
+      }).get().join(".y.y.");
+
+      var data = "content="+content.val()+"&choice="+choice;
+      $.post('/surveys/new_q', data, function(response) {
+        $('.container').html(response);
+      });
+      $(this).dialog("close");
+
+      },
+      Cancel: function() {
+        $(this).dialog("close");
+        $.get('/surveys/escape', function(response) {
+          $('.container').html(response);
+        });
+      }
+    },
+    // close: function() {}
+  });
+
+  $(document).on("click", "#add_choice", function() {
+    $("#making_questions").append("<input type='text' name='choice' placeholder='Add an answer choice!'>");
+    return false;
+  });
+
+  $(document).on("click", "#complete_survey", function() {
+    $("#thanks").dialog();
+  });
+
+	setTimeout(function() {
+		$('#myModal').reveal().trigger('click');
+	},10);
+  $('a#sign-out').on("click", function (e) {
+    e.preventDefault();
+    var request = $.ajax({ url: $(this).attr('href'), type: 'delete' });
+    request.done(function () { window.location = "/"; });
+  });
+
   function bindEvents() {
     $('.question_type').change(function(){
       var val = $(this).val()
@@ -96,46 +136,6 @@ $(document).ready(function () {
     }
 
     bindEvents();
-
-      var content = $("#question_content"),
-      choice = $("input[name='choice']").map(function(){
-        return $(this).val();
-      }).get().join(".y.y.");
-
-      var data = "content="+content.val()+"&choice="+choice;
-      $.post('/surveys/new_q', data, function(response) {
-        $('.container').html(response);
-      });
-      $(this).dialog("close");
-
-      },
-      Cancel: function() {
-        $(this).dialog("close");
-        $.get('/surveys/escape', function(response) {
-          $('.container').html(response);
-        });
-      }
-    },
-    // close: function() {}
-  });
-
-  $(document).on("click", "#add_choice", function() {
-    $("#making_questions").append("<input type='text' name='choice' placeholder='Add an answer choice!'>");
-    return false;
-  });
-
-  $(document).on("click", "#complete_survey", function() {
-    $("#thanks").dialog();
-  });
-
-	setTimeout(function() {
-		$('#myModal').reveal().trigger('click');
-	},10);
-  $('a#sign-out').on("click", function (e) {
-    e.preventDefault();
-    var request = $.ajax({ url: $(this).attr('href'), type: 'delete' });
-    request.done(function () { window.location = "/"; });
-  });
 
 });
 
