@@ -57,7 +57,6 @@ $(document).ready(function () {
         });
       }
     },
-    // close: function() {}
   });
 
   function bindEvents() {
@@ -83,51 +82,61 @@ $(document).ready(function () {
   }
 
   function textAnswer(){
-    console.log("Text")
     if ($('.answer_fields').html() == ""){
-      var $fieldType = $("<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>")
+      var $fieldType = $("<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br><input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
       $('.answer_fields').html($fieldType);
     } else {
-        if ($.contains('.answer_fields', 'ul'){
+        if ($('.answer_fields #sortable').length >= 1){
           $.each(textField(), function(index, input){
             var html = $('.answer_fields').html();
-            $('.answer_fields').html(html+"<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer' value='"+input+"'><br>")
+            $('.answer_fields').html(html+"<input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer' value='"+input+"'><br>");
+          });
         }
         else {  
           $('.format').replaceWith("<input type='hidden' class='format'>")
         }
     }
-    // $('.answer_fields').addClass('text');
   }
 
   function radioAnswer(){
-    console.log("Radio")
     if ($('.answer_fields').html() == ""){
-      var $fieldType = $("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>")
-      $('.answer_fields').html($fieldType);}
-    else {
-      $('.format').replaceWith("<input type='radio' class='format'>");
-      // $('.answer_fields').addClass('radio');
+      var $fieldType = $("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').html($fieldType);
+    } else {
+          if ($('.answer_fields #sortable').length >= 1){
+          $.each(textField(), function(index, input){
+            var html = $('.answer_fields').html();
+            $('.answer_fields').html(html+"<input type='radio' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer' value='"+input+"'><br>");
+          });
+        }
+        else {
+          $('.format').replaceWith("<input type='radio' class='format'>");
+        }
     }
   }
 
   function checkboxAnswer(){
-    console.log("Checkbox")
-    if ($('.answer_fields').html() == ""){ 
-      var $fieldType = $("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>")
-    $('.answer_fields').html($fieldType);}
-    else {
-      $('.format').replaceWith("<input type='checkbox' class='format'>");
-    // $('.answer_fields').addClass('checkbox');
+    if ($('.answer_fields').html() == ""){
+      var $fieldType = $("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br><input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
+    $('.answer_fields').html($fieldType);
+  } else {
+      if ($('.answer_fields #sortable').length >= 1){
+          $.each(textField(), function(index, input){
+            var html = $('.answer_fields').html();
+            $('.answer_fields').html(html+"<input type='checkbox' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer' value='"+input+"'><br>");
+          });
+        }
+        else {
+          $('.format').replaceWith("<input type='checkbox' class='format'>");
+        }
     }
   }
 
   //Strange hybrid of the creating survey and taking survey functionality
   //Needs to be separated. Sortable should only happen for taking.
   function rankingAnswer(){
-    console.log("Ranking");
     if ($('.answer_fields').html() == ""){ 
-      var $sortAnswers = $("<ul id='sortable' class='format'><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div></ul><br>")
+      var $sortAnswers = $("<ul id='sortable'><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text'></div><div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' class='text_answer' placeholder='text'></div></ul>");
       $('.answer_fields').html($sortAnswers);
       $sortAnswers.sortable();
     }
@@ -135,18 +144,14 @@ $(document).ready(function () {
       var choice = $(".text_answer").map(function(){
         return $(this).val();
       }).get(); 
-      $('.format').remove();
-      $('.text_answer').remove();
-      $('br').remove();
-      $('.answer_fields').html("<ul id='sortable' class='format'>");
+      $('.answer_fields').html("<ul id='sortable'>");
       $.each(choice, function(index, input){
-        console.log(input)
         var html = $('.answer_fields').html();
         $('.answer_fields').html(html+"<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value='"+input+"''></div>");
       })
       var html = $('.answer_fields').html();
-      $('.answer_fields').html(html+"</ul>")
-      var $sortAnswers = $('#sortable')
+      $('.answer_fields').html(html+"</ul>");
+      var $sortAnswers = $('#sortable');
       $sortAnswers.sortable();
     }
     // $('.answer_fields').addClass('ranking');
@@ -156,13 +161,11 @@ $(document).ready(function () {
     var choice = $(".text_answer").map(function(){
         return $(this).val();
       }).get(); 
-      $('ul').remove();
-      return choice;
-    }
+    $('.answer_fields').html("");
+    return choice;
   }
 
   function clearFields(){
-    console.log("Clear");
     $('.answer_fields').html('');
     $('.answer_fields').removeClass("text radio checkbox ranking");
   }
@@ -173,29 +176,22 @@ $(document).ready(function () {
     // document.getElementById("question_type").disabled = true
 
     var format = $('.question_type').val();
-    var html = $('#making_questions').html();
     switch (format) {
     case "text":
-      console.log("text add")
-      $('#making_questions').html(html+"<input type='text' name='choice' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='hidden' class = 'format'><input type='text' class='text_answer' placeholder='Answer'><br>");
       break;
     case "radio_button":
-      console.log("radio add")
-      $('#making_questions').html(html+"<input type='radio' name='choice' class='radio_answer' value=''> <input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='radio' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
       break;
     case "checkbox":
-      console.log("checkbox add")
-      $('#making_questions').html(html+"<input type='checkbox' name='choice' class='checkbox_answer' value=''> <input type='text' class='text_answer' placeholder='Answer'><br>");
+      $('.answer_fields').append("<input type='checkbox' name='choice' class='format' value=''><input type='text' class='text_answer' placeholder='Answer'><br>");
       break;
     case "ranking":
-      console.log("ranking add")
-      $('#sortable').append("<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div>");
+      $('.answer_fields').append("<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' name='choice' placeholder='text'></div>");
       break;
     };
     return false;
   });
-
-  //<ul id='sortable'></ul>
 
   $(document).on('click', '#create-survey', function(e) {
     e.preventDefault();
