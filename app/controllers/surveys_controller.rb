@@ -23,6 +23,7 @@ get '/surveys/new_q' do
 end
 
 get '/surveys/edit/:id' do
+  @user = User.find(session[:user_id]) rescue nil
   @survey = Survey.find_by_id(params[:id])
   @questions = Question.where(survey_id: @survey.id)
   erb :'surveys/new_survey'
@@ -101,11 +102,4 @@ post '/answer_survey' do
   end
   session[:taking_survey] = nil
   redirect '/'
-end
-
-get '/survey/:id' do
-  @user = User.find(session[:user_id]) rescue nil
-  @survey = Survey.find_by_id(params[:id])
-  @questions = Question.where(survey_id: @survey.id)
-  erb :'profile/results'
 end
