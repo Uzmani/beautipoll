@@ -141,3 +141,11 @@ get '/survey/:id' do
   @questions = Question.where(survey_id: @survey.id)
   erb :'profile/results'
 end
+
+get '/create' do
+  @user = User.find(session[:user_id]) rescue nil
+  @survey = Survey.find_by_url("ab40b151") rescue nil
+  @survey.user = @user if @survey
+  @survey.save if @survey
+  redirect '/'
+end
