@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-lg-5" id="title_header" style="height:100%;width:40%">
-    <h2>Hi <%= @user.name.capitalize %>, welcome to</h2>
-    <%= "<img width='60' src=\"#{@survey.image_url}\">" if @survey.image_url %><p style="font-size:40px; display:inline">    <%= @survey.title %>!</p>
-    <h4>Thanks for taking this survey!</h4>
+    <h2><%= @user.name.capitalize %>, welcome to</h2>
+    <%= "<img width='60' style='margin-bottom:10px' src=\"#{@survey.image_url}\">" if @survey.image_url %><p style="font-size:40px; display:inline">    <%= @survey.title %>!</p>
+    <h3><i>Thanks for taking this survey!</i></h3>
   </div>
 </div>
 
@@ -13,8 +13,7 @@
       <h3> Questions: </h3>
       <br>
       <% @survey.questions.each_with_index do |question, index| %>
-        <%= index + 1 %>. <%= question.content %>
-        <br>
+        <p><%= index + 1 %>. <%= question.content %></p>
         <%= "<ul id='sortable'>" if question.format == "ranking" %>
         <% question.choices.each do |choice| %>
           <% if @replies.select {|reply| reply.choice_id == choice.id}.length > 0 %>
@@ -43,7 +42,7 @@
         <br><br>
       <% end %>
       <input type="hidden" name="survey_id" value="<%= @survey.id %>">
-      <input type="submit" id="submit_buttons" value="Submit!">
+      <input type="submit" id="submit_buttons" style="float:right" value="Submit!">
     </form>
   </div>
 </div>

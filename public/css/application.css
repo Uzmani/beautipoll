@@ -157,6 +157,10 @@ form.quirks {
   padding: 70% 0 0 8%;
 }
 
+.gorilla {
+  opacity: 0.7;
+}
+
 .no-close .ui-dialog-titlebar-close {
   display: none;
 }
