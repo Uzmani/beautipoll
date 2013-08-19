@@ -101,8 +101,6 @@ function checkboxAnswer(){
   }
 }
 
-
-
 //Strange hybrid of the creating survey and taking survey functionality
 //Needs to be separated. Sortable should only happen for taking.
 function rankingAnswer(){
@@ -256,8 +254,6 @@ $(document).ready(function () {
   bindEvents();
 
   $(document).on("click", "#add_choice", function() {
-    // document.getElementById("question_type").disabled = true
-
     var format = $('.question_type').val();
     switch (format) {
     case "text":
@@ -281,7 +277,7 @@ $(document).ready(function () {
     $('#title-form').dialog('open');
   });
 
-  $(document).on('click', '#new_question', function(e) {
+  $(document).on('click', '#new-question', function(e) {
     e.preventDefault();
     $('.question_type').val("default_select");
     $(".answer_fields").html("");
@@ -329,34 +325,4 @@ $(document).ready(function () {
     var request = $.ajax({ url: $(this).attr('href'), type: 'delete' });
     request.done(function () { window.location = "/"; });
   });
-
- //  $(document).on("click", "#add_choice", function() {
- //    $("#making_questions").append("<input type='text' name='choice' placeholder='Add an answer choice!'>");
- //    return false;
- //  });
-
- //  $(document).on("click", "#complete_survey", function() {
- //    $("#thanks").dialog();
- //  });
-
-	// setTimeout(function() {
-	// 	$('#myModal').reveal().trigger('click');
-	// },10);
- //  $('a#sign-out').on("click", function (e) {
- //    e.preventDefault();
- //    var request = $.ajax({ url: $(this).attr('href'), type: 'delete' });
- //    request.done(function () { window.location = "/"; });
- //  });
-
 });
-
-// - wrap form fields in div#form_fields (or other element)
-
-// - click submit button
-// $('form_fields').on('click', 'submit', function(e){
-
-// })
-// - grap text from input field $('input').text()
-// - store this into a variable
-// - create a radio button, set label to variable
-// - append radio buttom to div

@@ -130,10 +130,3 @@ post '/answer_survey' do
   session[:taking_survey] = nil
   redirect '/'
 end
-
-get '/survey/:id' do
-  @user = User.find(session[:user_id]) rescue nil
-  @survey = Survey.find_by_id(params[:id])
-  @questions = Question.where(survey_id: @survey.id)
-  erb :'profile/results'
-end
