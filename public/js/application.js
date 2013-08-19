@@ -142,7 +142,7 @@ $(document).ready(function () {
   $("#title-form").dialog({
     dialogClass: "no-close",
     autoOpen: false,
-    height: 325,
+    height: 350,
     width: 750,
     modal: true,
     buttons: {
@@ -243,6 +243,28 @@ $(document).ready(function () {
     },
   });
 
+  $("#delete-survey").dialog({
+    dialogClass: "no-close",
+    autoOpen: false,
+    height: 175,
+    width: 750,
+    modal: true,
+    buttons: {
+      "Yes, I'm sure!": function() {
+
+      var data = "survey_id="+window.survey_id;
+      $.post('/surveys/delete_survey', data, function(response) {
+        window.location.href = "/";
+      });
+      $(this).dialog("close");
+
+      },
+      "Ack, no. Get me out of here!": function() {
+        $(this).dialog("close");
+      }
+    },
+  });
+
   bindEvents();
 
   $(document).on("click", "#add_choice", function() {
@@ -307,6 +329,12 @@ $(document).ready(function () {
     e.preventDefault();
     window.question_num = $(this).data("id");
     $('#delete-form').dialog('open');
+  });
+
+  $(document).on('click', '#delete-button', function(e) {
+    e.preventDefault();
+    window.survey_id = $(this).data("id");
+    $('#delete-survey').dialog('open');
   });
 
   setTimeout(function() {

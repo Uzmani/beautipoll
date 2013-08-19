@@ -1,27 +1,45 @@
 <div class="row">
-  <div class="col-lg-5" id="title_header">
-    <h1><%= @user.name.capitalize %>, welcome to</h1>
-    <%= "<img width='60' src=\"#{@survey.image_url}\">" if @survey.image_url %><h1><%= @survey.title %>!</h1>
-    <h2>Thanks for taking this survey!</h2>
+  <div class="col-lg-5" id="title_header" style="height:100%;width:40%">
+    <h2>Hi <%= @user.name.capitalize %>, welcome to</h2>
+    <%= "<img width='60' src=\"#{@survey.image_url}\">" if @survey.image_url %><p style="font-size:40px; display:inline">    <%= @survey.title %>!</p>
+    <h4>Thanks for taking this survey!</h4>
   </div>
 </div>
 
 
-<div class="row" style="margin: 0 0 200px 550px;">
-  <div class="col-lg-13" style="padding-right:40px">
+<div class="row" style="margin:-135px 0 0 190px">
+  <div class="col-lg-7" style="margin-left:40px">
     <form action="/answer_survey" method="post">
       <h3> Questions: </h3>
       <br>
       <% @survey.questions.each_with_index do |question, index| %>
         <%= index + 1 %>. <%= question.content %>
         <br>
+        <%= "<ul id='sortable'>" if question.format == "ranking" %>
         <% question.choices.each do |choice| %>
           <% if @replies.select {|reply| reply.choice_id == choice.id}.length > 0 %>
-            <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %> checked='checked'> <%= choice.content %><br>
+            <% if question.format == "text" %>
+              <p><%= choice.content %>: <input type="text" name="choice<%= question.id %>[]" value=<%= reply.find_by_choice_id(choice.id).content rescue nil %>></p><br>
+            <% elsif question.format == "radio" %>
+              <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %> checked='checked'> <%= choice.content %><br>
+            <% elsif question.format == "checkbox" %>
+              <input type="checkbox" name="choice<%= question.id %>[]" value=<%= choice.id %> checked='checked'> <%= choice.content %><br>
+            <% elsif question.format == "ranking" %>
+              <div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value="<%= choice.content %>"></div>
+            <% end %>
           <% else %>
-            <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %>> <%= choice.content %><br>
+            <% if question.format == "text" %>
+              <p><%= choice.content %>: <input type="text" name="choice<%= question.id %>[]"></p><br>
+            <% elsif question.format == "radio" %>
+              <input type="radio" name="choice<%= question.id %>[]" value=<%= choice.id %>> <%= choice.content %><br>
+            <% elsif question.format == "checkbox" %>
+              <input type="checkbox" name="choice<%= question.id %>[]" value=<%= choice.id %>> <%= choice.content %><br>
+            <% elsif question.format == "ranking" %>
+              <div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value="<%= choice.content %>"></div>
+            <% end %>
           <% end %>
         <% end %>
+        <%= "</ul>" if question.format == "ranking" %>
         <br><br>
       <% end %>
       <input type="hidden" name="survey_id" value="<%= @survey.id %>">

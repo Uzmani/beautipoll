@@ -1,23 +1,33 @@
-<a href="/surveys/new_q" style="float:right" id="new-question-border"><button id="new-question">Create a new question!</button></a>
+<a href="/surveys/new_q" style="float:right" id="new-question-border"><button id="new-question" style="margin-top:20px">Create a new question!</button></a>
 
-<a href="/surveys/complete" style="float:right" id="complete-survey-border"><button id="complete-survey">Complete my survey!</button></a>
+<a href="/surveys/complete" style="float:right" id="complete-survey-border"><button id="complete-survey" style="margin-top:20px">Complete my survey!</button></a>
 
-<img width="50" style="float: left" src="<%= @survey.image_url %>" />
-<h1><%= @survey.title %></h1>
+<img width="50" style="float: left; margin-top:20px" src="<%= @survey.image_url %>" />
+<h1 style="margin-top:25px; padding-left:55px"><%= @survey.title %></h1>
 
 
-
+<br>
 <h2>Questions</h2>
-<br><br>
+<br>
 <% @questions.each_with_index do |question, index| %>
   
   <p><%= "#{index + 1}. #{question.content}" %></p>
 
+  <%= "<ul>" if question.format == "ranking" %>
   <% question.choices.each do |choice| %>
-    <p><%= choice.content %></p>
+    <% if question.format == "text" %>
+      <p><%= choice.content %>: <input type="text"></p><br>
+    <% elsif question.format == "radio" %>
+      <input type="radio"> <%= choice.content %><br>
+    <% elsif question.format == "checkbox" %>
+      <input type="checkbox"> <%= choice.content %><br>
+    <% elsif question.format == "ranking" %>
+      <div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' placeholder='text' value="<%= choice.content %>"></div>
+    <% end %>
   <% end %>
-  <button id="edit_question" data-id="<%= question.id %>">Edit</button>
-  <button id="delete_question" data-id="<%= question.id %>">Delete</button>
+  <%= "</ul>" if question.format == "ranking" %>
+  <button class="btn btn-default" style="margin-top:8px" id="edit_question" data-id="<%= question.id %>">Edit</button>
+  <button class="btn btn-default" style="margin-top:8px" id="delete_question" data-id="<%= question.id %>">Delete</button>
   <br><br>
   
 <% end %>

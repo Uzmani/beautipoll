@@ -31,6 +31,10 @@ get '/surveys/edit/:id' do
   @correct_user ? (erb :'surveys/new_survey') : (redirect '/')
 end
 
+post '/surveys/delete_survey' do
+  Survey.find(params[:survey_id]).destroy
+end
+
 post '/surveys/new_q' do
   @survey = Survey.find(session[:survey_id]) rescue nil
   @question = Question.create({
@@ -129,4 +133,11 @@ post '/answer_survey' do
   end
   session[:taking_survey] = nil
   redirect '/'
+end
+
+get '/survey/:id' do
+  @user = User.find(session[:user_id]) rescue nil
+  @survey = Survey.find_by_id(params[:id])
+  @questions = Question.where(survey_id: @survey.id)
+  erb :'profile/results'
 end

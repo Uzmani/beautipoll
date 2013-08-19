@@ -1,22 +1,21 @@
 <div id="question-form" title="Add a Question">
 
-  <h4>Choice Format</h4>
+  <h4>Question Format:</h4>
     <select name="question_type" id="question_type" class="question_type">
-      <option id="default_select" value="default_select">Choose Format</option>
-      <option id="#text" value="text">Text</option>
-      <option id="#radio_button" value="radio_button">Radio Button</option>
-      <option id="#checkbox" value="checkbox">Checkbox</option>
-      <option id="#ranking" value="ranking">Ranking</option>
+      <option id="default_select" value="default_select">Choose Question Format</option>
+      <option id="#text" value="text">Single / Multiple Text Field(s)</option>
+      <option id="#radio_button" value="radio_button">Radio Buttons</option>
+      <option id="#checkbox" value="checkbox">Checkboxes</option>
+      <option id="#ranking" value="ranking">Drag and Drop Rankings</option>
     </select>
   <form >
-
     <button style="float:right" id="add_choice">Add another choice!</button>
-    <br><br>
-
+    <br>
+    <p style="font-size:14px">To delete an answer choice, just leave it empty!</p>
     <div id="making_questions">
     <fieldset>
       <label for="content">Content: </label>
-      <input type="text" id="question_content" name="content" placeholder="Enter your question here" size="50" required><br>
+      <input type="text" id="question_content" name="content" placeholder="Enter your question here" size="60" required><br><br>
       Answer Choices: 
       <div class='answer_fields'></div>
     </div>
