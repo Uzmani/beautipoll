@@ -41,8 +41,6 @@ function textAnswer(){
         var choice = textField();
         if (window.field.attr("id") == "edit-form") {
           choice = choice.slice((choice.length / 2), choice.length);
-        } else {
-          choice = choice.slice(0, (choice.length / 2));
         }
         $.each(choice, function(index, input){
           var html = $('.answer_fields').html();
@@ -64,8 +62,6 @@ function radioAnswer(){
         var choice = textField();
         if (window.field.attr("id") == "edit-form") {
           choice = choice.slice((choice.length / 2), choice.length);
-        } else {
-          choice = choice.slice(0, (choice.length / 2));
         }
       $.each(choice, function(index, input){
         var html = $('.answer_fields').html();
@@ -87,8 +83,6 @@ function checkboxAnswer(){
         var choice = textField();
         if (window.field.attr("id") == "edit-form") {
           choice = choice.slice((choice.length / 2), choice.length);
-        } else {
-          choice = choice.slice(0, (choice.length / 2));
         }
         $.each(choice, function(index, input){
           var html = $('.answer_fields').html();
@@ -115,9 +109,7 @@ function rankingAnswer(){
     }).get();
     if (window.field.attr("id") == "edit-form") {
       choice = choice.slice((choice.length / 2), choice.length);
-    } else {
-          choice = choice.slice(0, (choice.length / 2));
-        }
+    }
     var html = "<ul class='sortable'>";
     $.each(choice, function(index, input){
       html = html + "<div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value='"+input+"''></div>";
