@@ -14,8 +14,7 @@
   <p><%= "#{index + 1}. #{question.content}" %></p>
 
   <% question.choices.each do |choice| %>
-    <%= choice.content %>
-    <br>
+    <p><%= choice.content %></p>
   <% end %>
   <button id="edit_question" data-id="<%= question.id %>">Edit</button>
   <button id="delete_question" data-id="<%= question.id %>">Delete</button>

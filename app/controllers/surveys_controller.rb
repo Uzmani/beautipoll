@@ -35,7 +35,8 @@ post '/surveys/new_q' do
   @survey = Survey.find(session[:survey_id]) rescue nil
   @question = Question.create({
     survey: @survey,
-    content: params[:content]
+    content: params[:content],
+    format: params[:q_type]
     })
   choices = params[:choice].split(".y.y.")
   choices.each do |choice|
@@ -49,11 +50,18 @@ post '/surveys/new_q' do
   @survey.id.to_json
 end
 
+post '/surveys/get_q' do
+  @question = Question.find(params[:question_num])
+  erb :'surveys/get_q', :layout => false
+end
+
 post '/surveys/edit_q' do
   @survey = Survey.find(session[:survey_id]) rescue nil
   @question = Question.find(params[:question_num])
   @question.content = params[:content]
+  @question.format = params[:q_type]
   @question.save
+  Choice.destroy_all("question_id" => params[:question_num])
   choices = params[:choice].split(".y.y.")
   choices.each do |choice|
     Choice.create({
@@ -92,7 +100,11 @@ get '/take_survey/:url' do
   @user = User.find(session[:user_id]) rescue nil
   @survey = Survey.find_by_url(params[:url]) rescue nil
   @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: @user.id).first rescue nil
-  @replies = Reply.where(completed_survey_id: @current_survey.id) if @current_survey
+  if @current_survey
+    @replies = Reply.where(completed_survey_id: @current_survey.id)
+  else
+    @replies = []
+  end
   session[:taking_survey] = @survey.id if @survey
   check_user_login
   check_survey_exists

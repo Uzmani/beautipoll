@@ -1,0 +1,41 @@
+<h4>Choice Format</h4>
+  <select name="question_type" id="question_type" class="question_type">
+    <option id="default_select" value="default_select" disabled>Choose Format</option>
+    <%= @question.format == "text" ? '<option id="#text" value="text" selected="selected">Text</option>' : '<option id="#text" value="text">Text</option>' %>
+    <%= @question.format == "radio" ? '<option id="#radio_button" value="radio_button" selected="selected">Radio Button</option>' : '<option id="#radio_button" value="radio_button">Radio Button</option>' %>
+    <%= @question.format == "checkbox" ? '<option id="#checkbox" value="checkbox" selected="selected">Checkbox</option>' : '<option id="#checkbox" value="checkbox">Checkbox</option>' %>
+    <%= @question.format == "ranking" ? '<option id="#ranking" value="ranking" selected="selected">Ranking</option>' : '<option id="#ranking" value="ranking">Ranking</option>' %>
+  </select>
+<form >
+
+  <button style="float:right" id="add_choice">Add another choice!</button>
+  <br><br>
+
+  <div id="making_questions">
+    <fieldset>
+    <label for="content">Content: </label>
+    <input type="text" id="question_content" name="content" placeholder="Enter your question here" value="<%= @question.content %>" size="50" required>
+    Answer Choices: 
+    <div class='answer_fields'>
+    	<% if @question.format == "text" %>
+    	  <% @question.choices.each do |choice| %>
+          <input type='hidden' class = 'format'><input type='text' name='choice' class='text_answer' placeholder='Answer' value="<%= choice.content %>"><br>
+        <% end %>
+    	<% elsif @question.format == "radio" %>
+        <% @question.choices.each do |choice| %>
+    	    <input type='radio' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer' value="<%= choice.content %>"><br>
+        <% end %>
+    	<% elsif @question.format == "checkbox" %>
+    	  <% @question.choices.each do |choice| %>
+          <input type='checkbox' class='format' value=''><input type='text' name='choice' class='text_answer' placeholder='Answer' value="<%= choice.content %>"><br>
+        <% end %>
+    	<% elsif @question.format == "ranking" %>
+          <ul class='sortable'>
+          <% @question.choices.each do |choice| %>
+            <div class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span><input type='text' class='text_answer' name='choice' placeholder='text' value="<%= choice.content %>"></div>
+          <% end %>
+          </ul>
+    	<% end %>
+    </div>
+  </div>
+</form>
