@@ -13,7 +13,7 @@ post '/surveys/new' do
     @survey.image_url = image_url
     @survey.save
   end
-  @questions = Question.where(survey_id: @survey.id)
+  #@questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
   @survey.id.to_json
 end
@@ -29,8 +29,9 @@ get '/surveys/edit/:id' do
   @survey = Survey.find_by_id(params[:id])  
   session[:survey_id] = @survey.id if @survey
   @questions = Question.where(survey_id: @survey.id) if @survey
-  check_correct_user
-  @correct_user ? (erb :'surveys/new_survey') : (redirect '/')
+  # check_correct_user
+  # @correct_user ? (erb :'surveys/new_survey') : (redirect '/')
+  erb :'surveys/new_survey'
 end
 
 post '/surveys/delete_survey' do
@@ -94,27 +95,23 @@ get '/surveys/complete' do
 end
 
 get '/take_survey' do
-  @user = User.find(session[:user_id])  
+  #@user = User.find(session[:user_id])  
   @survey = Survey.where(visibility: 0).sample
-  @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: @user.id).first  
+  @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: current_user.id).first  
   @replies = (@current_survey ? (Reply.where(completed_survey_id: @current_survey.id)) : [])
   session[:taking_survey] = @survey.id if @survey
   erb :"surveys/take_survey"
 end
 
-get '/take_survey/:url' do
-  @user = User.find(session[:user_id])  
+get '/take_survey/:url' do 
   @survey = Survey.find_by_url(params[:url])  
-  @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: @user.id).first  
+  @current_survey = CompletedSurvey.where(survey_id: @survey.id, user_id: current_user.id).first  
   if @current_survey
     @replies = Reply.where(completed_survey_id: @current_survey.id)
   else
     @replies = []
   end
-  session[:taking_survey] = @survey.id if @survey
-  check_user_login
-  check_survey_exists
-  @user ? (@survey ? (erb :"surveys/take_survey") : (redirect '/')) : (redirect '/')
+  erb :"surveys/take_survey"
 end
 
 post '/answer_survey' do

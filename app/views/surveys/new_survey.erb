@@ -9,7 +9,7 @@
 <br>
 <h2>Questions</h2>
 <br>
-<% @questions.each_with_index do |question, index| %>
+<% @survey.questions.each_with_index do |question, index| %>
   
   <p><%= "#{index + 1}. #{question.content}" %></p>
 

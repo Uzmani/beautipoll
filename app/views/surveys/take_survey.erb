@@ -1,6 +1,6 @@
  <div class="row">
   <div class="col-lg-5" id="title_header" style="height:100%;width:40%">
-    <h2><%= @user.name.capitalize %>, welcome to</h2>
+    <h2><%= current_user.name.capitalize %>, welcome to</h2>
     <%= "<img width='60' style='margin-bottom:10px' src=\"#{@survey.image_url}\">" if @survey.image_url %><p style="font-size:40px; display:inline">    <%= @survey.title %>!</p>
     <h3><i>Thanks for taking this survey!</i></h3>
   </div>
@@ -16,7 +16,7 @@
         <p><%= index + 1 %>. <%= question.content %></p>
         <%= "<ul id='sortable'>" if question.format == "ranking" %>
         <% question.choices.each do |choice| %>
-          <% if @replies.select {|reply| reply.choice_id == choice.id}.length > 0 %>
+          <% if question_replies(@survey, choice).length > 0 %>
             <% if question.format == "text" %>
               <p><%= choice.content %>: <input type="text" name="choice<%= question.id %>[]" value=<%= reply.find_by_choice_id(choice.id).content   %>></p><br>
             <% elsif question.format == "radio" %>
