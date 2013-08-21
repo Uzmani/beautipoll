@@ -1,8 +1,8 @@
 get '/' do
   # @users = User.all
-  # @email = User.find(session[:user_id]).email rescue nil
+  # @email = User.find(session[:user_id]).email 
   # @user_id = session[:user_id]
-  # @user = User.find(@user_id) rescue nil
+  # @user = User.find(@user_id) 
   # @error = session[:error]
   # session[:error] = nil
   @surveys_taken = CompletedSurvey.where(user_id: @user_id)
@@ -16,7 +16,7 @@ end
 #----------- SESSIONS -----------
 
 get '/sessions/new' do
-  @email = User.find(session[:user_id]).email rescue nil
+  @email = User.find(session[:user_id]).email 
   session[:error] = nil
   erb :sign_in
 end
