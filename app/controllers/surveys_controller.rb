@@ -22,6 +22,8 @@ get '/surveys/new_q' do
   erb :'surveys/question'
 end
 
+
+
 get '/surveys/edit/:id' do
   @user = User.find(session[:user_id]) rescue nil
   @survey = Survey.find_by_id(params[:id]) rescue nil
@@ -142,10 +144,14 @@ get '/survey/:id' do
   erb :'profile/results'
 end
 
-get '/create' do
-  @user = User.find(session[:user_id]) rescue nil
-  @survey = Survey.find_by_url("ab40b151") rescue nil
-  @survey.user = @user if @survey
-  @survey.save if @survey
-  redirect '/'
-end
+# ---------------------------------------------------!!!!!!!
+# This route was made for the presentation only.
+
+# get '/create' do
+#   @user = User.find(session[:user_id]) rescue nil
+#   @survey = Survey.find_by_url("ab40b151") rescue nil
+#   @survey.user = @user if @survey
+#   @survey.save if @survey
+#   redirect '/'
+# end
+# ---------------------------------------------------

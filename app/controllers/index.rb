@@ -1,10 +1,10 @@
 get '/' do
-  @users = User.all
-  @email = User.find(session[:user_id]).email rescue nil
-  @user_id = session[:user_id]
-  @user = User.find(@user_id) rescue nil
-  @error = session[:error]
-  session[:error] = nil
+  # @users = User.all
+  # @email = User.find(session[:user_id]).email rescue nil
+  # @user_id = session[:user_id]
+  # @user = User.find(@user_id) rescue nil
+  # @error = session[:error]
+  # session[:error] = nil
   @surveys_taken = CompletedSurvey.where(user_id: @user_id)
   # @taking_survey = session[:taking_survey]
   # url = Survey.find(@taking_survey).url if @taking_survey
@@ -37,7 +37,12 @@ get '/users/new' do
 end
 
 post '/users' do
-  validate_and_create_user
-  @user_id = session[:user_id]
-  redirect '/'
+  
+  @user = User.new(params[:user])
+  if @user.save
+    session[:user_id] = @user.id
+    redirect '/'
+  else
+    erb :sign_up
+  end
 end
