@@ -10,7 +10,7 @@
 
 <div class="row" style="margin-top:20px">
   <div class="col-lg-4" id="title_header">
-    <h1><i>Great to see you, <%=@user.name.capitalize %>!</i></h1>
+    <h1><i>Great to see you, <%=current_user.name.capitalize %>!</i></h1>
   </div>
 
   <div class="col-lg-4" >
@@ -35,7 +35,7 @@
   <div class="col-lg-6" style="padding-right:40px">
     <h3><center> Surveys Created </center></h3>
     <ul class="list-unstyled">
-      <% Survey.where(user_id: @user.id).each do |survey| %>
+      <% Survey.where(user_id: current_user.id).each do |survey| %>
           <li>
             <div class="row">
               <hr>
@@ -61,10 +61,10 @@
   </div>
 
   <div class="col-lg-6" style="padding-left:40px">
-    <% unless @surveys_taken.empty? %>
+    <% unless current_user.completed_surveys.empty? %>
       <h3><center> Surveys Taken </center></h3>
       <ul class="list-unstyled">
-        <% @surveys_taken.each do |survey| %>
+        <% current_user.completed_surveys.each do |survey| %>
             <li>
               <div class="row">
                 <hr>

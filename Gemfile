@@ -22,6 +22,7 @@ gem 'pry'
 gem 'rspec'
 gem 'fog'
 
+
 group :development, :test do
   gem 'faker'
   gem 'factory_girl', "~> 4.0"
