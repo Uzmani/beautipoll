@@ -5,7 +5,7 @@ post '/surveys/new' do
     url: SecureRandom.hex(4),
     user: (User.find(session[:user_id]) rescue nil)
     })
-  if params[:image]
+  if params[:image] ################################## images
     image_url = "/uploads/#{@survey.id}icon." + params[:image][:filename].split(".").last
     File.open("public#{image_url}", "w") do |f|
       f.write(params[:image][:tempfile].read)
