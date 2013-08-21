@@ -41,3 +41,18 @@ post '/users' do
   @user_id = session[:user_id]
   redirect '/'
 end
+#--------------image upload tester-------------
+
+
+  get '/image_display' do
+    @uploads = Upload.all
+    erb :test
+  end
+ 
+  post '/image_uploader' do
+    upload = Upload.new
+    upload.file = params[:image]
+    upload.save
+    redirect to('/image_display')
+  end
+

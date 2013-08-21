@@ -15,10 +15,12 @@ gem 'activerecord'
 
 gem 'rake'
 gem 'bcrypt-ruby'
+gem 'carrierwave'
 
 gem 'shotgun'
 gem 'pry'
-  gem 'rspec'
+gem 'rspec'
+gem 'fog'
 
 group :development, :test do
   gem 'faker'
