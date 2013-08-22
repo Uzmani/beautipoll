@@ -135,16 +135,3 @@ get '/survey/:id' do
   erb :'profile/results'
 end
 
-
-# ---------------------------------------------------!!!!!!!
-# This route was made for the presentation only.
-
-# get '/create' do
-#   @user = User.find(session[:user_id])  
-#   @survey = Survey.find_by_url("ab40b151")  
-#   @survey.user = @user if @survey
-#   @survey.save if @survey
-#   redirect '/'
-# end
-# ---------------------------------------------------
-
