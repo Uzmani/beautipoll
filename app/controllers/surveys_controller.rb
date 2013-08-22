@@ -5,7 +5,7 @@ post '/surveys/new' do
     url: SecureRandom.hex(4),
     user: (User.find(session[:user_id])  )
     })
-  if params[:image]
+  if params[:image] ################################## images
     image_url = "/uploads/#{@survey.id}icon." + params[:image][:filename].split(".").last
     File.open("public#{image_url}", "w") do |f|
       f.write(params[:image][:tempfile].read)
@@ -141,14 +141,4 @@ get '/survey/:id' do
   erb :'profile/results'
 end
 
-# ---------------------------------------------------!!!!!!!
-# This route was made for the presentation only.
 
-# get '/create' do
-#   @user = User.find(session[:user_id])  
-#   @survey = Survey.find_by_url("ab40b151")  
-#   @survey.user = @user if @survey
-#   @survey.save if @survey
-#   redirect '/'
-# end
-# ---------------------------------------------------

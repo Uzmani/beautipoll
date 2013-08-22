@@ -41,7 +41,10 @@
               <hr>
               <div class="col-lg-7" style="margin-top:-20px">
                 <p style="margin-bottom:0" class="lead" id="survey-url"><%= survey.title %></p>
-                <a href="/take_survey/<%= survey.url %>"><p style="font-size:15px"><i><%= "http://localhost:9393/take_survey/#{survey.url}" %></i></p></a>
+                 <a href="/take_survey/<%= survey.url %>"><p style="font-size:15px"><i>
+                  <img id="survey-image" src="<%=survey.image_url%>" style=​"margin-bottom:​10px" </img>
+                  <br>
+                  <%= "http://localhost:9393/take_survey/#{survey.url}" %></i></p></a>
               </div>
               <div class="col-lg-8" style="width: 120%">
                 <a class="btn btn-default" id="edit-button" href="/surveys/edit/<%= survey.id %>">Edit Survey</a>
@@ -67,6 +70,9 @@
                 <hr>
                 <div class="col-lg-7">
                   <p class="lead"><%= survey.survey.title %></p>
+                  <img id="survey-image" src="<%=survey.survey.image_url%>" style=​"margin-bottom:​10px" </img>
+                  <br>
+                  <br>
                   <% if Reply.where(completed_survey_id: survey.id).length >= survey.survey.questions.length %>
                   <p><i>Completed!</i></p>
                   <% end %>

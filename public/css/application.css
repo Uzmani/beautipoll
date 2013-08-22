@@ -6,6 +6,11 @@ body {
   background-repeat: round;
 }
 
+#survey-image {
+  height: 50px;
+  width: 50px;
+}
+
 #title-form {
   border-radius: 16px;
 }
@@ -67,6 +72,12 @@ body {
 
 #survey-url {
   padding: 16px 0 8px 0;
+  float: left;
+}
+
+.lead {
+  padding: 16px 0 8px 0;
+  float: left;
 }
 
 #new-question-border, #complete-survey-border {
