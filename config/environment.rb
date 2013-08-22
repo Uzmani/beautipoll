@@ -21,6 +21,8 @@ require 'erb'
 require 'bcrypt'
 require 'securerandom'
 require 'pry'
+require 'carrierwave'
+require  'fog'
 
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
@@ -33,3 +35,17 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
+
+env_config = YAML.load_file(APP_ROOT.join('config', 'aws.yaml'))
+
+CarrierWave.configure do |config|
+  config.fog_credentials = {
+    config.provider             = 'AWS'
+    config.aws_access_key_id    = env_config['AWSAccessKeyId']
+    config.aws_secret_access_key= env_config['AWSAccessKey']
+  }
+  config.fog_directory  = 'Beautipoll'
+end
+
+
+

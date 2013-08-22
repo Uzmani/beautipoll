@@ -141,4 +141,3 @@ get '/survey/:id' do
   erb :'profile/results'
 end
 
-
