@@ -5,10 +5,7 @@ class Survey < ActiveRecord::Base
 
   validates :title, presence: true
   validates :user, presence: true
-  # validate :has_question?
-  
-  # def has_question?
-  #   errors.add(:base, "Survey must have at least one question.") if self.questions.blank?
-  # end
+
+  mount_uploader :image, ImageUploader
 
 end

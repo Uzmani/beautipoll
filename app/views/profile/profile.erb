@@ -65,12 +65,13 @@
       <h3><center> Surveys Taken </center></h3>
       <ul class="list-unstyled">
         <% current_user.completed_surveys.each do |survey| %>
+          <% unless survey.survey.nil? %>
             <li>
               <div class="row">
                 <hr>
                 <div class="col-lg-7">
                   <p class="lead"><%= survey.survey.title %></p>
-                  <img id="survey-image" src="<%=survey.survey.image_url%>" style=​"margin-bottom:​10px" </img>
+                  <img id="survey-image" src="<%= survey.survey.image.url %>" style=​"margin-bottom:​10px" </img>
                   <br>
                   <br>
                   <% if Reply.where(completed_survey_id: survey.id).length >= survey.survey.questions.length %>
@@ -86,6 +87,7 @@
                 </div>
               </div>
             </li>
+          <% end %>
         <% end %>
       </ul>
       <hr>

@@ -3,16 +3,10 @@ post '/surveys/new' do
     title: params[:title],
     visibility: (params[:make_private] ? 1 : 0),
     url: SecureRandom.hex(4),
-    user: (User.find(session[:user_id])  )
+    user: (User.find(session[:user_id])),
+    image: params[:image]
     })
-  if params[:image] ################################## images
-    image_url = "/uploads/#{@survey.id}icon." + params[:image][:filename].split(".").last
-    File.open("public#{image_url}", "w") do |f|
-      f.write(params[:image][:tempfile].read)
-    end
-    @survey.image_url = image_url
     @survey.save
-  end
   #@questions = Question.where(survey_id: @survey.id)
   session[:survey_id] = @survey.id
   @survey.id.to_json

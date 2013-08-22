@@ -22,30 +22,35 @@ require 'bcrypt'
 require 'securerandom'
 require 'pry'
 require 'carrierwave'
-require  'fog'
+require 'carrierwave/orm/activerecord'
+require 'fog'
 
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
 APP_NAME = APP_ROOT.basename.to_s
 
+
+ENV_CONFIG = YAML.load_file(APP_ROOT.join('config', 'aws.yaml'))
+
+CarrierWave.configure do |config|
+  config.fog_credentials = {
+    :provider             => 'AWS',
+    :aws_access_key_id    => ENV_CONFIG['AWSAccessKeyId'],
+    :aws_secret_access_key => ENV_CONFIG['AWSSecretKey']
+  }
+  config.fog_directory  = 'Beautipoll'
+end
+
 # Set up the controllers and helpers
 Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
 Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
+Dir[APP_ROOT.join('app', 'uploaders', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
 
-env_config = YAML.load_file(APP_ROOT.join('config', 'aws.yaml'))
 
-CarrierWave.configure do |config|
-  config.fog_credentials = {
-    config.provider             = 'AWS'
-    config.aws_access_key_id    = env_config['AWSAccessKeyId']
-    config.aws_secret_access_key= env_config['AWSAccessKey']
-  }
-  config.fog_directory  = 'Beautipoll'
-end
 
 
 
